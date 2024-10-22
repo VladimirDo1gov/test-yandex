@@ -1,43 +1,58 @@
-const productItem = document.querySelectorAll(".product-item");
+const productGroup = document.querySelector(".product-group");
+let currentDroppable = null;
 
-for (let item of productItem) {
-    item.onmousedown = function (event) {
-        let shiftX = event.clientX - item.getBoundingClientRect().left;
-        let shiftY = event.clientY - item.getBoundingClientRect().top;
-        // (1) отследить нажатие
+productGroup.onmousedown = (event) => {
+    const item = event.target.closest(".product-item");
+    let shiftX = event.clientX;
+    let shiftY = event.clientY;
 
-        // (2) подготовить к перемещению:
-        // разместить поверх остального содержимого и в абсолютных координатах
-        item.style.position = "absolute";
-        item.style.zIndex = 1000;
-        // переместим в body, чтобы мяч был точно не внутри position:relative
-        document.body.append(item);
-        // и установим абсолютно спозиционированный мяч под курсор
+    item.style.position = "relative";
+    item.style.zIndex = 1000;
 
+    moveAt(event.pageX, event.pageY);
+
+    function moveAt(pageX, pageY) {
+        item.style.left = pageX - shiftX + "px";
+        item.style.top = pageY - shiftY + "px";
+    }
+
+    function onMouseMove(event) {
         moveAt(event.pageX, event.pageY);
 
-        // передвинуть мяч под координаты курсора
-        // и сдвинуть на половину ширины/высоты для центрирования
-        function moveAt(pageX, pageY) {
-            item.style.left = pageX - shiftX + "px";
-            item.style.top = pageY - shiftY + "px";
+        item.hidden = true;
+        let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+        item.hidden = false;
+        if (!elemBelow) return;
+        let droppableBelow = elemBelow.closest(".droppable");
+        if (currentDroppable != droppableBelow) {
+            if (currentDroppable) {
+                leaveDroppable(currentDroppable);
+            }
+            currentDroppable = droppableBelow;
+            if (currentDroppable) {
+                console.log(1);
+            }
         }
+    }
 
-        function onMouseMove(event) {
-            moveAt(event.pageX, event.pageY);
-        }
+    document.addEventListener("mousemove", onMouseMove);
 
-        // (3) перемещать по экрану
-        document.addEventListener("mousemove", onMouseMove);
-
-        // (4) положить мяч, удалить более ненужные обработчики событий
-        item.onmouseup = function () {
-            document.removeEventListener("mousemove", onMouseMove);
-            item.onmouseup = null;
-        };
+    item.onmouseup = function () {
+        document.removeEventListener("mousemove", onMouseMove);
+        item.onmouseup = null;
     };
-
     item.ondragstart = function () {
         return false;
     };
+};
+
+function getCoordinats(e) {
+    let shiftX = e.clientX;
+    let shiftY = e.clientY;
+    return { shiftX, shiftY };
+}
+
+function drop(event) {
+    document.removeEventListener("mousemove", onMouseMove);
+    event.target.onmouseup = null;
 }

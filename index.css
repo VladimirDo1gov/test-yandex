@@ -68,6 +68,8 @@ img {
 }
 
 .product-item {
+    user-select: none;
+    cursor: grab;
 }
 .product-item:hover {
     transform: scale(1.1);
@@ -77,4 +79,10 @@ img {
 .cart {
     position: absolute;
     bottom: 180px;
+}
+
+.selected {
+    opacity: 0.8;
+    position: relative;
+    z-index: 1000;
 }
