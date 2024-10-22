@@ -1,0 +1,80 @@
+* {
+    box-sizing: border-box;
+}
+img {
+    display: block;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 900;
+}
+.main {
+    margin: 0 auto;
+    width: 300px;
+    height: 600px;
+    border: 4px solid black;
+}
+.banner {
+    margin: 0 auto;
+    position: relative;
+    min-width: 208.2px;
+    width: fit-content;
+    height: 575px;
+    /* border: 1px solid black; */
+}
+.closet {
+    background-image: url("./img/closet.svg");
+    position: relative;
+    top: 25px;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid blue; */
+}
+.product-group {
+    position: relative;
+    border: 4px solid green;
+    height: 320px;
+    width: 211.37px;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-level {
+    position: relative;
+    width: 100%;
+    padding: 0 10px;
+    min-height: fit-content;
+    height: fit-content;
+    border: 1px solid red;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.product-level-up {
+    top: -8px;
+    height: 131px;
+}
+.product-level-middle {
+    height: 94.5px;
+}
+.product-level-low {
+    height: 94.5px;
+}
+
+.product-item {
+}
+.product-item:hover {
+    transform: scale(1.1);
+    transition: 0.2s;
+}
+
+.cart {
+    position: absolute;
+    bottom: 180px;
+}
