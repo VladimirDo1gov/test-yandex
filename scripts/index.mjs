@@ -1,9 +1,9 @@
 import handlerDrag, { productElements } from "./dragAndDrop.mjs";
-import { onTouchStart, onTouchMove, onTouchEnd } from "./TouchHandler.mjs";
+import TouchEvents from "./TouchHandler.mjs";
 // navigator.userAgent
 
 productElements.productGroup.addEventListener("mousedown", handlerDrag);
 
-productElements.productGroup.addEventListener("touchstart", onTouchStart);
-productElements.productGroup.addEventListener("touchmove", onTouchMove);
-productElements.productGroup.addEventListener("touchend", onTouchEnd);
+productElements.productGroup.addEventListener("touchstart", TouchEvents.onTouchStart);
+productElements.productGroup.addEventListener("touchmove", TouchEvents.onTouchMove);
+productElements.productGroup.addEventListener("touchend", TouchEvents.onTouchEnd);

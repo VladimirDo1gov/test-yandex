@@ -2,88 +2,87 @@ import AnimationService from "./Services/AnimationService.mjs";
 import ProductService from "./Services/ProductService.mjs";
 import StoreService from "./Services/StoreService.mjs";
 
-const localState = {
+const localStorage = {
     isDragging: false,
     item: null,
     shiftX: 0,
     shiftY: 0,
     dropTarget: null,
-    state: [],
+    addedProductArr: [],
+    draggetItemClass: "selected-touch",
 };
 
-export function onTouchStart(event) {
-    event.preventDefault();
-    if (event.target.closest(".product-group-item")) {
-        localState.isDragging = true;
-        localState.item = event.target.closest(".product-group-item");
-        AnimationService.cartAddScale();
+class TouchEvents {
+    onTouchStart(event) {
+        event.preventDefault();
+        if (event.target.closest(".product-group-item")) {
+            localStorage.isDragging = true;
+            localStorage.item = event.target.closest(".product-group-item");
+            AnimationService.cartAddScale();
+        }
     }
-}
-
-export function onTouchMove(event) {
-    if (localState.isDragging && localState.item) {
-        atMove(event);
-        if (!localState.item.classList.contains("selected-touch")) {
-            localState.item.classList.add("selected-touch");
+    onTouchMove(event) {
+        if (localStorage.isDragging && localStorage.item) {
+            atMove(event);
+            if (!localStorage.item.classList.contains(localStorage.draggetItemClass)) {
+                localStorage.item.classList.add(localStorage.draggetItemClass);
+            }
+        }
+    }
+    onTouchEnd() {
+        if (localStorage.isDragging) {
+            drop();
+            checkState();
+            reset();
         }
     }
 }
 
-export function onTouchEnd() {
-    if (localState.isDragging) {
-        drop();
-        checkState();
-        reset();
-    }
+export default new TouchEvents();
+
+function atMove(event) {
+    const { clientX, clientY } = event.touches[0];
+    localStorage.shiftX = clientX;
+    localStorage.shiftY = clientY;
+
+    localStorage.item.style.position = "fixed";
+    localStorage.item.style.left = localStorage.shiftX + "px";
+    localStorage.item.style.top = localStorage.shiftY + "px";
 }
 
 function drop() {
-    localState.item.hidden = true;
-    localState.dropTarget = document
-        .elementFromPoint(localState.shiftX, localState.shiftY)
+    localStorage.item.hidden = true;
+    localStorage.dropTarget = document
+        .elementFromPoint(localStorage.shiftX, localStorage.shiftY)
         .closest(".cart");
-    localState.item.hidden = false;
+    localStorage.item.hidden = false;
     AnimationService.cartRemoveScale();
-    if (localState.dropTarget) {
-        ProductService.addProductIntoCart(localState.item);
-        StoreService.store(localState.item.id, localState.state);
+    if (localStorage.dropTarget) {
+        ProductService.addProductIntoCart(localStorage.item);
+        StoreService.store(localStorage.item.id, localStorage.addedProductArr);
     }
 }
 
 function checkState() {
-    StoreService.storeCheck(localState.state);
+    StoreService.storeCheck(localStorage.addedProductArr);
     if (StoreService.completed) {
-        stateIsFull();
+        productArrIsFull();
         reset();
     }
 }
 
-function stateIsFull() {
+function productArrIsFull() {
     ProductService.showBannerButton();
-    ProductService.fillRemoveItemPlace(localState.item);
+    ProductService.fillRemoveItemPlace(localStorage.item);
     ProductService.removeClassesForProductItem();
     ProductService.addClassesForProductItem();
 }
 
-function atMove(event) {
-    const { clientX, clientY } = event.touches[0];
-    localState.shiftX = clientX;
-    localState.shiftY = clientY;
-
-    localState.item.style.position = "fixed";
-    localState.item.style.left = localState.shiftX + "px";
-    localState.item.style.top = localState.shiftY + "px";
-}
-
 function reset() {
-    localState.isDragging = false;
-    localState.item.classList.remove("selected-touch");
-    localState.item.style.left = "";
-    localState.item.style.top = "";
-    localState.item.style.height = "";
-    localState.item.style.width = "";
-    localState.item.style.position = "";
-    localState.item = null;
-    localState.shiftX = 0;
-    localState.shiftY = 0;
+    localStorage.isDragging = false;
+    localStorage.item.classList.remove(localStorage.draggetItemClass);
+    localStorage.item.style.position = "";
+    localStorage.item = null;
+    localStorage.shiftX = 0;
+    localStorage.shiftY = 0;
 }
