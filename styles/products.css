@@ -159,6 +159,6 @@
 }
 .selected-touch {
     opacity: var(--opacity-sm);
-    position: fixed;
+    position: relative;
     z-index: 2000;
 }
