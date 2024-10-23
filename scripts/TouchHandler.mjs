@@ -2,95 +2,88 @@ import AnimationService from "./Services/AnimationService.mjs";
 import ProductService from "./Services/ProductService.mjs";
 import StoreService from "./Services/StoreService.mjs";
 
-const banner = document.querySelector(".banner-section");
-
-let isDragging = false;
-let item = null;
-let shiftX = 0;
-let shiftY = 0;
-let dropTarget = null;
-let state = [];
+const localState = {
+    isDragging: false,
+    item: null,
+    shiftX: 0,
+    shiftY: 0,
+    dropTarget: null,
+    state: [],
+};
 
 export function onTouchStart(event) {
     event.preventDefault();
     if (event.target.closest(".product-group-item")) {
-        isDragging = true;
-        item = event.target.closest(".product-group-item");
+        localState.isDragging = true;
+        localState.item = event.target.closest(".product-group-item");
         AnimationService.cartAddScale();
     }
 }
 
 export function onTouchMove(event) {
-    if (isDragging && item) {
-        const { clientX, clientY } = event.touches[0];
-        shiftX = clientX;
-        shiftY = clientY;
-
-        console.log(document.elementFromPoint(shiftX, shiftY).closest(".cart"));
-        item.classList.add("selected-touch");
-        item.style.position = "fixed"; // Если удалить, предметы будут возвращаться на места
-        item.style.left = shiftX + "px";
-        item.style.top = shiftY + "px";
+    if (localState.isDragging && localState.item) {
+        atMove(event);
+        if (!localState.item.classList.contains("selected-touch")) {
+            localState.item.classList.add("selected-touch");
+        }
     }
 }
 
-export function onTouchEnd(event) {
-    if (isDragging) {
+export function onTouchEnd() {
+    if (localState.isDragging) {
         drop();
-        updateState();
+        checkState();
         reset();
     }
 }
 
 function drop() {
-    item.hidden = true;
-    dropTarget = document.elementFromPoint(shiftX, shiftY).closest(".cart");
-    item.hidden = false;
+    localState.item.hidden = true;
+    localState.dropTarget = document
+        .elementFromPoint(localState.shiftX, localState.shiftY)
+        .closest(".cart");
+    localState.item.hidden = false;
+    AnimationService.cartRemoveScale();
+    if (localState.dropTarget) {
+        ProductService.addProductIntoCart(localState.item);
+        StoreService.store(localState.item.id, localState.state);
+    }
 }
 
-function updateState() {
-    if (dropTarget) {
-        StoreService.store(item.id, state);
-    }
-    StoreService.storeCheck(state);
+function checkState() {
+    StoreService.storeCheck(localState.state);
     if (StoreService.completed) {
-        ProductService.showBannerButton();
+        stateIsFull();
+        reset();
     }
 }
 
-function insertToCart(item) {
-    item.hidden = true;
-    let requiereElement = document.elementFromPoint(shiftX, shiftY).closest(".cart");
-    item.hidden = false;
-    console.log(1);
-    if (requiereElement === productElements.cart) {
-        console.log(2);
-        ProductService.fillRemoveItemPlace(item);
-        ProductService.addProductIntoCart(item);
-        StoreService.store(item.id, initialState);
-        StoreService.storeCheck(initialState);
-        if (StoreService.completed) {
-            ProductService.removeClassesForProductItem();
-            ProductService.addClassesForProductItem();
-            ProductService.showBannerButton();
-        }
-    }
+function stateIsFull() {
+    ProductService.showBannerButton();
+    ProductService.fillRemoveItemPlace(localState.item);
+    ProductService.removeClassesForProductItem();
+    ProductService.addClassesForProductItem();
 }
 
-function atMove() {}
+function atMove(event) {
+    const { clientX, clientY } = event.touches[0];
+    localState.shiftX = clientX;
+    localState.shiftY = clientY;
+
+    localState.item.style.position = "fixed";
+    localState.item.style.left = localState.shiftX + "px";
+    localState.item.style.top = localState.shiftY + "px";
+}
 
 function reset() {
-    isDragging = false;
-    item.classList.remove("selected-touch");
-    item.style.left = "";
-    item.style.top = "";
-    item.style.height = "";
-    item.style.width = "";
-    item.style.position = "";
-    item = null;
-    shiftX = 0;
-    shiftY = 0;
+    localState.isDragging = false;
+    localState.item.classList.remove("selected-touch");
+    localState.item.style.left = "";
+    localState.item.style.top = "";
+    localState.item.style.height = "";
+    localState.item.style.width = "";
+    localState.item.style.position = "";
+    localState.item = null;
+    localState.shiftX = 0;
+    localState.shiftY = 0;
 }
-
-// item.style.height = item.clientHeight;
-// item.style.width = item.clientWidth;
