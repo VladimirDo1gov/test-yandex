@@ -30,10 +30,9 @@ class ProductService {
     }
 
     addProductIntoCart(item) {
-        const cart = document.querySelector(".cart-grid");
-        item.id += "-added";
+        const cartGrid = document.querySelector(".cart-grid");
         item.className = "product-into-cart";
-        cart.append(item);
+        cartGrid.append(item);
     }
 
     addClassesForProductItem() {
@@ -49,6 +48,12 @@ class ProductService {
             item.classList.remove("grab");
             item.classList.remove("can-choose");
         }
+    }
+
+    showBannerButton() {
+        const buttonSubmitPay = document.querySelector("#button-submit-pay");
+        buttonSubmitPay.classList.add("btn-outside-banner");
+        buttonSubmitPay.classList.add("btn-inside-banner");
     }
 }
 

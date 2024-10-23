@@ -1,6 +1,7 @@
 import StoreService from "./Services/StoreService.mjs";
 import ProductService from "./Services/ProductService.mjs";
 import AnimationService from "./Services/AnimationService.mjs";
+import CartService from "./Services/CartService.mjs";
 
 const initialState = [];
 
@@ -30,10 +31,10 @@ export default function handlerDrag(event) {
     }
 
     productElements.productGroup.addEventListener("mouseup", (event) => {
-        document.removeEventListener("mousemove", onMouseMove);
-        insertToCart(item, event);
         item.classList.remove("selected");
         AnimationService.cartRemoveScale();
+        document.removeEventListener("mousemove", onMouseMove);
+        insertToCart(item, event);
     });
 
     item.ondragstart = function () {
@@ -44,18 +45,15 @@ export default function handlerDrag(event) {
 function insertToCart(item, event) {
     const { clientX, clientY } = ProductService.getCoordinats(event);
     item.hidden = true;
-    let requiereElement = document.elementFromPoint(clientX, clientY).closest(".cart");
+    let requiereElement = document.elementFromPoint(clientX, clientY - 50).closest(".cart");
     item.hidden = false;
     if (requiereElement === productElements.cart) {
-        ProductService.fillRemoveItemPlace(item);
+        CartService.whenProductOverCart(item, initialState);
         ProductService.addProductIntoCart(item);
-        StoreService.store(item.id, initialState);
-        StoreService.storeCheck(initialState);
         if (StoreService.completed) {
             productElements.productGroup.removeEventListener("mousedown", handlerDrag);
-            ProductService.removeClassesForProductItem();
-            ProductService.addClassesForProductItem();
-            ProductService.showBannerButton();
+            CartService.whenCartFull();
         }
     }
 }
+

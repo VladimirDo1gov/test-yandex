@@ -1,3 +1,4 @@
+/* Следить за количеством предметов в корзине */
 class StoreService {
     completed = false;
 
