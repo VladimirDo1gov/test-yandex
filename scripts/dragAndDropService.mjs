@@ -6,7 +6,7 @@ let initialState = [];
 const productGroup = document.querySelector(".product-group");
 const cart = document.querySelector(".cart");
 
-function handlerDrag() {
+function handlerDrag(event) {
     const item = event.target.closest(".product-item");
     const { clientX, clientY } = ProductService.getCoordinats(event);
 
@@ -36,8 +36,6 @@ function handlerDrag() {
     };
 }
 
-// ----------------------
-
 productGroup.addEventListener("mousedown", handlerDrag);
 
 function insertToCart(item, event) {
@@ -49,5 +47,9 @@ function insertToCart(item, event) {
         ProductService.addProductIntoCart(item);
         StoreService.store(item.id, initialState);
         StoreService.storeCheck(initialState);
+        if (StoreService.completed) {
+            productGroup.removeEventListener("mousedown", handlerDrag);
+            ProductService.removeClassesForProductItem();
+        }
     }
 }

@@ -1,4 +1,5 @@
 class StoreService {
+    completed = false;
     getStartedCoordinats(event) {
         const clientX = event.clientX + window.scrollX;
         const clientY = event.clientY + window.scrollY;
@@ -17,6 +18,7 @@ class StoreService {
             buttonSubmitPay.removeAttribute("hidden");
             const message = document.querySelector(".message-abiut-cart-full");
             message.removeAttribute("hidden");
+            this.completed = true;
         }
     }
 }

@@ -15,6 +15,14 @@ class ProductService {
         item.className = "product-into-cart";
         cart.append(item);
     }
+    addClassesForProductItem() {}
+    removeClassesForProductItem() {
+        const productItems = document.querySelectorAll(".product-item");
+        for (let item of productItems) {
+            item.classList.remove("grab");
+            item.classList.remove("can-choose");
+        }
+    }
 }
 
 export default new ProductService();
