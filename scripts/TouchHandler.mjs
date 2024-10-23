@@ -73,8 +73,6 @@ function checkState() {
 
 function productArrIsFull() {
     ProductService.showBannerButton();
-    ProductService.fillRemoveItemPlace(localStorage.item);
-    ProductService.removeClassesForProductItem();
     ProductService.addClassesForProductItem();
 }
 
