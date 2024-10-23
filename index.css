@@ -5,6 +5,11 @@ img {
     display: block;
 }
 
+:root {
+    --btn-color-default: rgb(252, 224, 0);
+    --btn-color-default-hover: rgb(252, 228, 48);
+}
+
 .container {
     margin: 0 auto;
     max-width: 900;
@@ -76,9 +81,50 @@ img {
     transition: 0.2s;
 }
 
+.cart-container {
+    position: relative;
+    bottom: 180px;
+    border: 6px solid red;
+    width: 100%;
+    height: 200px;
+}
+.cart-grid {
+    border: 4px solid green;
+    position: absolute;
+    bottom: 10px;
+    left: 56px;
+    width: 72%;
+    height: 80%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: end;
+}
 .cart {
     position: absolute;
-    bottom: 180px;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    border: 2px solid blue;
+}
+.product-into-cart {
+    width: fit-content;
+    bottom: 0px;
+    left: 100px;
+}
+
+.btn-default {
+    position: absolute;
+    bottom: 26px;
+    left: 46px;
+    background-color: var(--btn-color-default);
+    padding: 16px 24px;
+    border-radius: 18px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+.btn-default:hover {
+    background-color: var(--btn-color-default-hover);
 }
 
 .selected {
@@ -86,3 +132,5 @@ img {
     position: relative;
     z-index: 1000;
 }
+
+/* ------------ */
