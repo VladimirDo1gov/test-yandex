@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+    user-select: none;
+}
+img {
+    display: block;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 900;
+}
+
+:root {
+    --btn-color-default: rgb(252, 224, 0);
+    --btn-color-default-hover: rgb(252, 228, 48);
+}
+.grab {
+    cursor: grab;
+}
+.opacity {
+    opacity: 0.7;
+}
+
+.can-choose:hover {
+    transform: scale(1.1);
+    transition: 0.2s;
+}
+
+/*#region button */
+.btn-default {
+    background-color: var(--btn-color-default);
+    padding: 16px 24px;
+    border-radius: 18px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+.btn-default:hover {
+    background-color: var(--btn-color-default-hover);
+}
+/*#endregion button */

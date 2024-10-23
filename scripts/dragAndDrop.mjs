@@ -1,16 +1,20 @@
 import StoreService from "./Services/StoreService.mjs";
 import ProductService from "./Services/ProductService.mjs";
+import AnimationService from "./Services/AnimationService.mjs";
 
-let initialState = [];
+const initialState = [];
 
-const productGroup = document.querySelector(".product-group");
-const cart = document.querySelector(".cart");
+export const productElements = {
+    productGroup: document.querySelector(".product-group"),
+    cart: document.querySelector(".cart"),
+};
 
-function handlerDrag(event) {
-    const item = event.target.closest(".product-item");
+export default function handlerDrag(event) {
+    const item = event.target.closest(".product-group-item");
     const { clientX, clientY } = ProductService.getCoordinats(event);
 
     item.classList.add("selected");
+    AnimationService.cartAddScale();
     item.style.left = event.pageX - clientX + "px";
     item.style.top = event.pageY - clientY + "px";
 
@@ -25,10 +29,11 @@ function handlerDrag(event) {
         moveAt(event.pageX, event.pageY);
     }
 
-    productGroup.addEventListener("mouseup", (event) => {
+    productElements.productGroup.addEventListener("mouseup", (event) => {
         document.removeEventListener("mousemove", onMouseMove);
         insertToCart(item, event);
         item.classList.remove("selected");
+        AnimationService.cartRemoveScale();
     });
 
     item.ondragstart = function () {
@@ -36,19 +41,18 @@ function handlerDrag(event) {
     };
 }
 
-productGroup.addEventListener("mousedown", handlerDrag);
-
 function insertToCart(item, event) {
     const { clientX, clientY } = ProductService.getCoordinats(event);
     item.hidden = true;
     let requiereElement = document.elementFromPoint(clientX, clientY).closest(".cart");
     item.hidden = false;
-    if (requiereElement === cart) {
+    if (requiereElement === productElements.cart) {
+        ProductService.fillRemoveItemPlace(item);
         ProductService.addProductIntoCart(item);
         StoreService.store(item.id, initialState);
         StoreService.storeCheck(initialState);
         if (StoreService.completed) {
-            productGroup.removeEventListener("mousedown", handlerDrag);
+            productElements.productGroup.removeEventListener("mousedown", handlerDrag);
             ProductService.removeClassesForProductItem();
             ProductService.addClassesForProductItem();
         }

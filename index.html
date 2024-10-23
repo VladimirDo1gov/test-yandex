@@ -3,101 +3,72 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-        <link rel="stylesheet" href="./index.css" />
+        <link rel="stylesheet" href="/styles/index.css" />
+        <link rel="stylesheet" href="./styles/products.css" />
+        <title>Banner</title>
     </head>
     <body>
-        <div class="container">
-            <div class="main">
-                <div class="banner">
-                    <div class="closet">
-                        <div class="product-group">
-                            <div class="product-level product-level-up">
-                                <div
-                                    class="product-item product-item-vine grab can-choose"
-                                    id="vine"
-                                >
-                                    <img src="./img/up/vine.svg" alt="" />
+        <main>
+            <div class="container">
+                <section class="banner-section">
+                    <div class="banner">
+                        <div class="banner-background">
+                            <div class="product-group">
+                                <div class="product-group-level product-group-level-up">
+                                    <div class="product-group-item grab can-choose" id="vine">
+                                        <img src="./img/up/vine.svg" alt="" />
+                                    </div>
+                                    <div class="product-group-item grab can-choose" id="milk">
+                                        <img src="./img/up/milk.svg" alt="" />
+                                    </div>
+                                    <div class="product-group-item grab can-choose" id="jam">
+                                        <img src="./img/up/jam.svg" alt="" />
+                                    </div>
+                                    <div class="product-group-item grab can-choose" id="cheese">
+                                        <img src="./img/up/cheese.svg" alt="" />
+                                    </div>
                                 </div>
-                                <div
-                                    class="product-item product-item-milk grab can-choose"
-                                    id="milk"
-                                >
-                                    <img src="./img/up/milk.svg" alt="" />
+                                <div class="product-group-level product-group-level-middle">
+                                    <div class="product-group-item grab can-choose" id="meat">
+                                        <img src="./img/middle/meat.svg" alt="" />
+                                    </div>
+                                    <div class="product-group-item grab can-choose" id="chicken">
+                                        <img src="./img/middle/chicken.svg" alt="" />
+                                    </div>
+                                    <div class="product-group-item grab can-choose" id="cheeps">
+                                        <img src="./img/middle/cheeps.svg" alt="" />
+                                    </div>
                                 </div>
-                                <div class="product-item product-item-jam grab can-choose" id="jam">
-                                    <img src="./img/up/jam.svg" alt="" />
-                                </div>
-                                <div
-                                    class="product-item product-item-cheese grab can-choose"
-                                    id="cheese"
-                                >
-                                    <img src="./img/up/cheese.svg" alt="" />
-                                </div>
-                            </div>
-                            <div class="product-level product-level-middle">
-                                <div
-                                    class="product-item product-item-meat grab can-choose"
-                                    id="meat"
-                                >
-                                    <img src="./img/middle/meat.svg" alt="" />
-                                </div>
-                                <div
-                                    class="product-item product-item-chicken grab can-choose"
-                                    id="chicken"
-                                >
-                                    <img src="./img/middle/chicken.svg" alt="" />
-                                </div>
-                                <div
-                                    class="product-item product-item-cheeps grab can-choose"
-                                    id="cheeps"
-                                >
-                                    <img src="./img/middle/cheeps.svg" alt="" />
-                                </div>
-                            </div>
-                            <div class="product-level product-level-low">
-                                <div
-                                    class="product-item product-item-pineapple grab can-choose"
-                                    id="pineapple"
-                                >
-                                    <img src="./img/low/pineapple.svg" alt="" />
-                                </div>
-                                <div
-                                    class="product-item product-item-banana grab can-choose"
-                                    id="banana"
-                                >
-                                    <img src="./img/low/banana.svg" alt="" />
-                                </div>
-                                <div
-                                    class="product-item product-item-apple grab can-choose"
-                                    id="apple"
-                                >
-                                    <img src="./img/low/apple.svg" alt="" />
-                                </div>
-                                <div
-                                    class="product-item product-item-green grab can-choose"
-                                    id="green"
-                                >
-                                    <img src="./img/low/green.svg" alt="" />
+                                <div class="product-group-level product-group-level-low">
+                                    <div class="product-group-item grab can-choose" id="pineapple">
+                                        <img src="./img/low/pineapple.svg" alt="" />
+                                    </div>
+                                    <div class="product-group-item grab can-choose" id="banana">
+                                        <img src="./img/low/banana.svg" alt="" />
+                                    </div>
+                                    <div class="product-group-item grab can-choose" id="apple">
+                                        <img src="./img/low/apple.svg" alt="" />
+                                    </div>
+                                    <div class="product-group-item grab can-choose" id="green">
+                                        <img src="./img/low/green.svg" alt="" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="cart-container">
-                    <div class="cart">
-                        <img src="./img/cart.svg" alt="" />
+                    <div class="cart-container">
+                        <div class="cart">
+                            <img src="./img/cart.svg" alt="" />
+                        </div>
+                        <!-- Для добавляемых продуктов -->
+                        <div class="cart-grid"></div>
                     </div>
-                    <div class="cart-grid"></div>
-                    <button hidden="true" class="btn-default" id="button-submit-pay">
-                        Оплатить корзину
+                    <button hidden class="btn-default btn-banner" id="button-submit-pay">
+                        <a href="https://lavka.yandex.ru/">Оплатить корзину</a>
                     </button>
-                </div>
-                <p class="message-abiut-cart-full" hidden="true">Корзина полная!</p>
+                </section>
             </div>
-        </div>
-        <script type="module" src="./scripts/dragAndDropService.mjs"></script>
-        <!-- <script src="./dragAndDrop.js"></script> -->
-        <!-- <script src="index.js"></script> -->
+        </main>
+        <script type="module" src="scripts/index.mjs"></script>
     </body>
 </html>

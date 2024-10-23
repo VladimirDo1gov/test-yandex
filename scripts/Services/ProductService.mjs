@@ -4,19 +4,19 @@ class ProductService {
         const clientY = event.clientY + window.scrollY;
         return { clientX, clientY };
     }
-    addProductIntoCart(item) {
-        const parent = item.closest(".product-level");
-        const cart = document.querySelector(".cart-grid");
 
-        // Выделить в отдельный метод
+    createPlaceholder(item) {
         const itemStyle = getComputedStyle(item);
         const div = document.createElement("div");
         div.style.width = itemStyle.width;
         div.style.height = itemStyle.height;
-        // div.style.background = "red";
-        console.log(itemStyle.width);
+        return div;
+    }
 
-        if (parent) {
+    fillRemoveItemPlace(item) {
+        const productGroupLevel = item.closest(".product-group-level");
+        const div = this.createPlaceholder(item);
+        if (productGroupLevel) {
             const nextSibling = item.nextElementSibling;
             const previousSibling = item.previousElementSibling;
             if (nextSibling) {
@@ -27,19 +27,24 @@ class ProductService {
             }
             item.remove();
         }
-        //
+    }
+
+    addProductIntoCart(item) {
+        const cart = document.querySelector(".cart-grid");
         item.id += "-added";
         item.className = "product-into-cart";
         cart.append(item);
     }
+
     addClassesForProductItem() {
-        const productItems = document.querySelectorAll(".product-item");
+        const productItems = document.querySelectorAll(".product-group-item");
         for (let item of productItems) {
             item.classList.add("opacity");
         }
     }
+
     removeClassesForProductItem() {
-        const productItems = document.querySelectorAll(".product-item");
+        const productItems = document.querySelectorAll(".product-group-item");
         for (let item of productItems) {
             item.classList.remove("grab");
             item.classList.remove("can-choose");
