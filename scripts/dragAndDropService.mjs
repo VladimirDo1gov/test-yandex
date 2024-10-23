@@ -50,6 +50,7 @@ function insertToCart(item, event) {
         if (StoreService.completed) {
             productGroup.removeEventListener("mousedown", handlerDrag);
             ProductService.removeClassesForProductItem();
+            ProductService.addClassesForProductItem();
         }
     }
 }
