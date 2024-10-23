@@ -157,3 +157,8 @@
     position: relative;
     z-index: 2000;
 }
+.selected-touch {
+    opacity: var(--opacity-sm);
+    position: fixed;
+    z-index: 2000;
+}
