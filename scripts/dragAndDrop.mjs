@@ -7,6 +7,7 @@ const initialState = [];
 export const productElements = {
     productGroup: document.querySelector(".product-group"),
     cart: document.querySelector(".cart"),
+    banner: document.querySelector(".banner-section"),
 };
 
 export default function handlerDrag(event) {
@@ -18,7 +19,7 @@ export default function handlerDrag(event) {
     item.style.left = event.pageX - clientX + "px";
     item.style.top = event.pageY - clientY + "px";
 
-    document.addEventListener("mousemove", onMouseMove);
+    productElements.banner.addEventListener("mousemove", onMouseMove);
 
     function moveAt(pageX, pageY) {
         item.style.left = pageX - clientX + "px";
