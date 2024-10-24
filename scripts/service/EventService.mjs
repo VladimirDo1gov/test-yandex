@@ -1,6 +1,6 @@
-import AnimationService from "./AnimationService.mjs";
-import ProductService from "./ProductService.mjs";
-import StoreService from "./StoreService.mjs";
+import AnimationService from "./animationService.mjs";
+import ProductService from "./productService.mjs";
+import StoreService from "./storeService.mjs";
 
 class EventService {
     isDragging = false;
@@ -12,11 +12,10 @@ class EventService {
     draggetItemClass = "selected";
 
     getCoordinats(clientX, clientY) {
-        this.shiftX = clientX + window.scrollX;
-        this.shiftY = clientY + window.scrollY;
+        this.shiftX = clientX + window.scrollX - this.target.clientWidth / 2;
+        this.shiftY = clientY + window.scrollY - this.target.clientHeight / 2;
     }
-
-    MoveAt(event) {
+    moveAt(event) {
         if (event.clientX) {
             this.getCoordinats(event.clientX, event.clientY);
         }
@@ -24,18 +23,19 @@ class EventService {
             const { clientX, clientY } = event.touches[0];
             this.getCoordinats(clientX, clientY);
         }
-        this.target.style.position = "fixed";
         this.target.style.left = this.shiftX + "px";
         this.target.style.top = this.shiftY + "px";
     }
     drop() {
-        this.target.hidden = true;
-        this.dropTarget = document.elementFromPoint(this.shiftX, this.shiftY).closest(".cart");
-        this.target.hidden = false;
-        AnimationService.cartRemoveScale();
-        if (this.dropTarget) {
-            ProductService.addProductIntoCart(this.target);
-            StoreService.addTargetToStore(this.target.id, this.addedProductArr);
+        if (this.target) {
+            this.target.hidden = true;
+            this.dropTarget = document.elementFromPoint(this.shiftX, this.shiftY).closest(".cart");
+            this.target.hidden = false;
+            AnimationService.cartRemoveScale();
+            if (this.dropTarget) {
+                ProductService.addProductIntoCart(this.target);
+                StoreService.addTargetToStore(this.target.id, this.addedProductArr);
+            }
         }
     }
     reset() {

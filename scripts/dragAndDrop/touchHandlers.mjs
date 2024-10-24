@@ -1,18 +1,19 @@
-import AnimationService from "../banerService/AnimationService.mjs";
-import EventService from "../banerService/eventService.mjs";
+import AnimationService from "../service/animationService.mjs";
+import EventService from "../service/eventService.mjs";
 class TouchHandlers {
     onTouchStart(event) {
         event.preventDefault();
         if (event.target.closest(".product-group-item")) {
             EventService.isDragging = true;
             EventService.target = event.target.closest(".product-group-item");
+            EventService.addSelectedClass();
+            EventService.moveAt(event);
             AnimationService.cartAddScale();
         }
     }
     onTouchMove(event) {
         if (EventService.isDragging && EventService.target) {
-            EventService.MoveAt(event);
-            EventService.addSelectedClass();
+            EventService.moveAt(event);
         }
     }
     onTouchEnd() {
