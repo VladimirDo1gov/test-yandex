@@ -78,9 +78,20 @@ function productArrIsFull() {
 
 function reset() {
     localStorage.isDragging = false;
-    localStorage.item.classList.remove(localStorage.draggetItemClass);
-    localStorage.item.style.position = "";
-    localStorage.item = null;
+    resetItem();
     localStorage.shiftX = 0;
     localStorage.shiftY = 0;
+}
+
+function addSelectedClass() {
+    if (!localStorage.item.classList.contains(localStorage.draggetItemClass)) {
+        localStorage.item.classList.add(localStorage.draggetItemClass);
+    }
+}
+function resetItem() {
+    if (localStorage.item) {
+        localStorage.item.classList.remove(localStorage.draggetItemClass);
+        localStorage.item.style.position = "";
+        localStorage.item = null;
+    }
 }

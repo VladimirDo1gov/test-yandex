@@ -1,10 +1,4 @@
 class ProductService {
-    getCoordinats(event) {
-        const clientX = event.clientX + window.scrollX;
-        const clientY = event.clientY + window.scrollY;
-        return { clientX, clientY };
-    }
-
     createPlaceholder(item) {
         const itemStyle = getComputedStyle(item);
         const div = document.createElement("div");

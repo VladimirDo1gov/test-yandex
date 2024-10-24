@@ -1,4 +1,4 @@
-import handlerDrag, { productElements } from "./dragAndDrop.mjs";
+import handlerDrag, { productElements } from "./dragAndDropNew.mjs";
 import TouchEvents from "./TouchHandler.mjs";
 // navigator.userAgent
 
