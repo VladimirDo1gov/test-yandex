@@ -1,5 +1,3 @@
-import StoreService from "./Services/StoreService.mjs";
-import ProductService from "./Services/ProductService.mjs";
 import AnimationService from "./Services/AnimationService.mjs";
 import EventService from "./Services/EventService.mjs";
 
@@ -17,7 +15,6 @@ export default function onMouseDown(event) {
         onMouseMove(event);
         productElements.banner.addEventListener("mousemove", onMouseMove);
         productElements.productGroup.addEventListener("mouseup", onMouseUp);
-
         EventService.item.ondragstart = () => {
             return false;
         };
@@ -27,7 +24,7 @@ export default function onMouseDown(event) {
 function onMouseMove(event) {
     if (EventService.isDragging && EventService.item) {
         EventService.atMove(event);
-        addSelectedClass();
+        EventService.addSelectedClass();
     }
 }
 
@@ -35,28 +32,10 @@ function onMouseUp() {
     if (EventService.isDragging) {
         document.removeEventListener("mousemove", onMouseMove);
         EventService.drop();
-        checkState();
+        EventService.checkState();
         EventService.reset();
     }
 }
 
-function addSelectedClass() {
-    if (!EventService.item.classList.contains(EventService.draggetItemClass)) {
-        EventService.item.classList.add(EventService.draggetItemClass);
-    }
-}
-
-function checkState() {
-    StoreService.storeCheck(EventService.addedProductArr);
-    if (StoreService.completed) {
-        productElements.productGroup.removeEventListener("mousedown", onMouseDown);
-        ProductService.removeClassesForProductItem();
-        productArrIsFull();
-        EventService.reset();
-    }
-}
-
-function productArrIsFull() {
-    ProductService.showBannerButton();
-    ProductService.addClassesForProductItem();
-}
+// После загрузки корзины, элементы нельзя будет взять
+// productElements.productGroup.removeEventListener("mousedown", onMouseDown);

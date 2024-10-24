@@ -48,6 +48,24 @@ class EventService {
             this.item = null;
         }
     }
+    productArrIsFull() {
+        ProductService.showBannerButton();
+        ProductService.addClassesForProductItem();
+    }
+    addSelectedClass() {
+        if (!this.item.classList.contains(this.draggetItemClass)) {
+            this.item.classList.add(this.draggetItemClass);
+        }
+    }
+    checkState() {
+        StoreService.storeCheck(this.addedProductArr);
+        if (StoreService.completed) {
+            this.isDragging = false;
+            ProductService.removeClassesForProductItem();
+            this.productArrIsFull();
+            this.reset();
+        }
+    }
 }
 
 export default new EventService();
