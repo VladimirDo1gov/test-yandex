@@ -4,7 +4,7 @@ import StoreService from "./StoreService.mjs";
 
 class EventService {
     isDragging = false;
-    item = null;
+    target = null;
     shiftX = 0;
     shiftY = 0;
     dropTarget = null;
@@ -16,7 +16,7 @@ class EventService {
         this.shiftY = clientY + window.scrollY;
     }
 
-    atMove(event) {
+    MoveAt(event) {
         if (event.clientX) {
             this.getCoordinats(event.clientX, event.clientY);
         }
@@ -24,48 +24,48 @@ class EventService {
             const { clientX, clientY } = event.touches[0];
             this.getCoordinats(clientX, clientY);
         }
-        this.item.style.position = "fixed";
-        this.item.style.left = this.shiftX + "px";
-        this.item.style.top = this.shiftY + "px";
+        this.target.style.position = "fixed";
+        this.target.style.left = this.shiftX + "px";
+        this.target.style.top = this.shiftY + "px";
     }
     drop() {
-        this.item.hidden = true;
+        this.target.hidden = true;
         this.dropTarget = document.elementFromPoint(this.shiftX, this.shiftY).closest(".cart");
-        this.item.hidden = false;
+        this.target.hidden = false;
         AnimationService.cartRemoveScale();
         if (this.dropTarget) {
-            ProductService.addProductIntoCart(this.item);
-            StoreService.store(this.item.id, this.addedProductArr);
+            ProductService.addProductIntoCart(this.target);
+            StoreService.addTargetToStore(this.target.id, this.addedProductArr);
         }
     }
     reset() {
         this.isDragging = false;
-        this.resetItem();
+        this.resetTarget();
         this.shiftX = 0;
         this.shiftY = 0;
     }
-    resetItem() {
-        if (this.item) {
-            this.item.classList.remove(this.draggetItemClass);
-            this.item.style.position = "";
-            this.item = null;
+    resetTarget() {
+        if (this.target) {
+            this.target.classList.remove(this.draggetItemClass);
+            this.target.style.position = "";
+            this.target = null;
         }
     }
-    productArrIsFull() {
+    productCartIsFull() {
         ProductService.showBannerButton();
         ProductService.addClassesForProductItem();
     }
     addSelectedClass() {
-        if (!this.item.classList.contains(this.draggetItemClass)) {
-            this.item.classList.add(this.draggetItemClass);
+        if (!this.target.classList.contains(this.draggetItemClass)) {
+            this.target.classList.add(this.draggetItemClass);
         }
     }
     checkState() {
         StoreService.storeCheck(this.addedProductArr);
-        if (StoreService.completed) {
+        if (StoreService.isFulled) {
             this.isDragging = false;
             ProductService.removeClassesForProductItem();
-            this.productArrIsFull();
+            this.productCartIsFull();
             this.reset();
         }
     }

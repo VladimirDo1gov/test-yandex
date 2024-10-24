@@ -48,6 +48,7 @@ class ProductService {
         const buttonSubmitPay = document.querySelector("#button-submit-pay");
         buttonSubmitPay.classList.add("btn-outside-banner");
         buttonSubmitPay.classList.add("btn-inside-banner");
+        buttonSubmitPay.removeAttribute("aria-hidden");
     }
 }
 

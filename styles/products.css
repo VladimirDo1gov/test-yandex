@@ -98,11 +98,6 @@
 .product-group-level-low {
     height: 94.5px;
 }
-
-.product-item {
-}
-.product-item:hover {
-}
 /*#endregion products */
 
 /*#region cart */
@@ -137,7 +132,7 @@
 
 /*#endregion cart */
 
-/*#region button benner */
+/*#region button banner */
 .btn-banner {
     position: absolute;
     /* bottom: 0px; */
@@ -150,7 +145,7 @@
 .btn-inside-banner {
     animation: btn-move-inside forwards 0.5s ease-out;
 }
-/*#endregion button benner */
+/*#endregion button banner */
 
 .selected {
     opacity: var(--opacity-sm);
