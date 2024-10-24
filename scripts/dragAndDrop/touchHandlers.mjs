@@ -20,8 +20,8 @@ class TouchHandlers {
     }
     onTouchEnd() {
         EventService.drop();
-        EventService.checkState();
         EventService.reset();
+        EventService.checkState();
     }
 }
 

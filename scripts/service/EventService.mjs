@@ -26,21 +26,23 @@ class EventService {
             const { clientX, clientY } = event.touches[0];
             this.getCoordinats(clientX, clientY);
         }
+
         this.target.style.left = this.shiftX + "px";
         this.target.style.top = this.shiftY + "px";
     }
     drop() {
         if (this.target) {
             this.target.hidden = true;
-            this.dropTarget = document.elementFromPoint(this.shiftX, this.shiftY).closest(".cart");
+            this.dropTarget = document.elementFromPoint(this.shiftX, this.shiftY)?.closest(".cart");
             this.target.hidden = false;
             AnimationService.cartRemoveScale();
             if (this.dropTarget) {
                 ProductService.addProductIntoCart(this.target);
                 StoreService.addTargetToStore(this.target.id, this.addedProductArr);
             }
+            // Чтобы реплейсер не удалялся если элемент остался в корзине
             if (!this.dropTarget) {
-                ProductService.removeDraggedTarget(this.target);
+                ProductService.removeReplaceDraggedTarget(this.target);
             }
         }
     }

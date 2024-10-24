@@ -24,12 +24,50 @@ export default function MouseDownHandler(event) {
 function onMouseMove(event) {
     if (EventService.isDragging) {
         EventService.moveAt(event);
+        setLimitBorder(event);
     }
 }
 
-function onMouseUp(event) {
+function onMouseUp() {
     document.removeEventListener("mousemove", onMouseMove); // Не удалять
     EventService.drop();
     EventService.checkState();
     EventService.reset();
 }
+
+function setLimitBorder(event) {
+    const clientX = event.clientX;
+    const clientY = event.clientY;
+    //Right
+    if (clientX + EventService.target.clientWidth > document.documentElement.clientWidth) {
+        ProductService.removeReplaceDraggedTarget(EventService.target);
+        EventService.reset();
+        console.log("right");
+    }
+    //left
+    else if (clientX - EventService.target.clientWidth < document.documentElement.offsetLeft) {
+        ProductService.removeReplaceDraggedTarget(EventService.target);
+        EventService.reset();
+        console.log("left");
+    }
+    //up
+    else if (clientY - EventService.target.clientWidth / 2 < document.documentElement.offsetTop) {
+        ProductService.removeReplaceDraggedTarget(EventService.target);
+        EventService.reset();
+        console.log("up");
+    }
+    // down
+    else if (
+        clientY + EventService.target.clientWidth / 2 >
+        document.documentElement.clientHeight
+    ) {
+        ProductService.removeReplaceDraggedTarget(EventService.target);
+        console.log("down");
+        EventService.reset();
+    }
+}
+
+console.log(" offsetWidth: ", document.documentElement.offsetWidth);
+console.log(" offsetLeft: ", document.documentElement.offsetLeft);
+console.log(" offsetTop: ", document.documentElement.offsetTop);
+console.log(" clientHeight: ", document.documentElement.clientHeight);

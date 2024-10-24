@@ -24,7 +24,7 @@ class ProductService {
         }
     }
 
-    removeDraggedTarget(item) {
+    removeReplaceDraggedTarget(item) {
         const placeHolderDraggedItem = document.querySelector(`.paceholder-${item.id}`);
         placeHolderDraggedItem.remove();
     }
