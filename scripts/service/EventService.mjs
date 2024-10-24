@@ -23,9 +23,33 @@ class EventService {
             const { clientX, clientY } = event.touches[0];
             this.getCoordinats(clientX, clientY);
         }
+        this.setLimitAtMove();
         this.target.style.left = this.shiftX + "px";
         this.target.style.top = this.shiftY + "px";
     }
+
+    getLimit() {
+        const borderMove = document.querySelector(".banner-section");
+        const { left, right, top, bottom } = borderMove.getBoundingClientRect();
+        console.log("left : ", left, "right : ", right, "top : ", top, "bottom : ", bottom);
+        return { left, right, top, bottom };
+    }
+
+    // Доделать
+    setLimitAtMove() {
+        const { left, right, top, bottom } = this.getLimit();
+        if (this.shiftX > right) {
+            this.shiftX = right;
+        } else if (this.shiftX < left) {
+            this.shiftX = left;
+        }
+        if (this.shiftY < top) {
+            this.shiftY = top;
+        } else if (this.shiftY > bottom) {
+            this.shiftY = bottom - this.target.clientHeight;
+        }
+    }
+
     drop() {
         if (this.target) {
             this.target.hidden = true;

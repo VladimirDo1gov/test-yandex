@@ -25,9 +25,24 @@ function onMouseMove(event) {
     }
 }
 
-function onMouseUp() {
+function onMouseUp(event) {
+    // Попытка настроить onMouseUp за пределами границ
+    // const { left, right, top, bottom } = EventService.getLimit();
+    // if (event.clientX > right) {
+    //     EventService.reset();
+    // }
+    // else if (event.clientX < left) {
+    //     EventService.reset();
+    // }
+    // else if (event.clientY < top) {
+    //     EventService.reset();
+    // }
+    // else if (event.clientY > bottom) {
+    //     EventService.reset();
+    // } else {
+
+    // }
     DOMElements.banner.removeEventListener("mousemove", onMouseMove); // Не удалять
-    // ProductService.removeDraggedTarget();
     EventService.drop();
     EventService.checkState();
     EventService.reset();

@@ -49,6 +49,7 @@
     height: 600px;
     overflow: hidden;
     position: relative;
+    border: 4px solid green;
 }
 .banner {
     margin: 0 auto;
