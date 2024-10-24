@@ -1,6 +1,6 @@
 import AnimationService from "./Services/AnimationService.mjs";
 import EventService from "./Services/EventService.mjs";
-class TouchEvents {
+class TouchHandlers {
     onTouchStart(event) {
         event.preventDefault();
         if (event.target.closest(".product-group-item")) {
@@ -24,4 +24,4 @@ class TouchEvents {
     }
 }
 
-export default new TouchEvents();
+export default new TouchHandlers();

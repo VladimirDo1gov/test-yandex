@@ -11,15 +11,18 @@ class EventService {
     addedProductArr = [];
     draggetItemClass = "selected";
 
+    getCoordinats(clientX, clientY) {
+        this.shiftX = clientX + window.scrollX;
+        this.shiftY = clientY + window.scrollY;
+    }
+
     atMove(event) {
         if (event.clientX) {
-            this.shiftX = event.clientX + window.scrollX;
-            this.shiftY = event.clientY + window.scrollY;
+            this.getCoordinats(event.clientX, event.clientY);
         }
         if (event.touches) {
             const { clientX, clientY } = event.touches[0];
-            this.shiftX = clientX + window.scrollX;
-            this.shiftY = clientY + window.scrollY;
+            this.getCoordinats(clientX, clientY);
         }
         this.item.style.position = "fixed";
         this.item.style.left = this.shiftX + "px";

@@ -1,20 +1,15 @@
 import AnimationService from "./Services/AnimationService.mjs";
 import EventService from "./Services/EventService.mjs";
+import { DOMElements } from "./index.mjs";
 
-export const productElements = {
-    productGroup: document.querySelector(".product-group"),
-    cart: document.querySelector(".cart"),
-    banner: document.querySelector(".banner-section"),
-};
-
-export default function onMouseDown(event) {
+export default function MouseDownHandler(event) {
     if (event.target.closest(".product-group-item")) {
         EventService.isDragging = true;
         EventService.item = event.target.closest(".product-group-item");
         AnimationService.cartAddScale();
         onMouseMove(event);
-        productElements.banner.addEventListener("mousemove", onMouseMove);
-        productElements.productGroup.addEventListener("mouseup", onMouseUp);
+        DOMElements.banner.addEventListener("mousemove", onMouseMove);
+        DOMElements.productGroup.addEventListener("mouseup", onMouseUp);
         EventService.item.ondragstart = () => {
             return false;
         };
@@ -22,7 +17,7 @@ export default function onMouseDown(event) {
 }
 
 function onMouseMove(event) {
-    if (EventService.isDragging && EventService.item) {
+    if (EventService.isDragging) {
         EventService.atMove(event);
         EventService.addSelectedClass();
     }
@@ -30,12 +25,15 @@ function onMouseMove(event) {
 
 function onMouseUp() {
     if (EventService.isDragging) {
-        document.removeEventListener("mousemove", onMouseMove);
         EventService.drop();
         EventService.checkState();
         EventService.reset();
     }
 }
+
+// Раньше нужно было для удаления события, теперь работает без него
+// Был в onMouseUp
+// productElements.banner.removeEventListener("mousemove", onMouseMove);
 
 // После загрузки корзины, элементы нельзя будет взять
 // productElements.productGroup.removeEventListener("mousedown", onMouseDown);

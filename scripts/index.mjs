@@ -1,9 +1,18 @@
-import onMouseDown, { productElements } from "./dragAndDropNewNew.mjs";
-import TouchEvents from "./TouchHandlerNew.mjs";
-// navigator.userAgent
+import MouseDownHandler from "./MouseDownHandler.mjs";
+import TouchHandlers from "./TouchHandlers.mjs";
 
-productElements.productGroup.addEventListener("mousedown", onMouseDown);
+export const DOMElements = {
+    get productGroup() {
+        return document.querySelector(".product-group");
+    },
+    get banner() {
+        return document.querySelector(".banner-section");
+    },
+};
 
-productElements.productGroup.addEventListener("touchstart", TouchEvents.onTouchStart);
-productElements.productGroup.addEventListener("touchmove", TouchEvents.onTouchMove);
-productElements.productGroup.addEventListener("touchend", TouchEvents.onTouchEnd);
+document.addEventListener("DOMContentLoaded", () => {
+    DOMElements.productGroup.addEventListener("mousedown", MouseDownHandler);
+    DOMElements.productGroup.addEventListener("touchstart", TouchHandlers.onTouchStart);
+    DOMElements.productGroup.addEventListener("touchmove", TouchHandlers.onTouchMove);
+    DOMElements.productGroup.addEventListener("touchend", TouchHandlers.onTouchEnd);
+});
