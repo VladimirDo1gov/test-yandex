@@ -1,5 +1,5 @@
-import AnimationService from "../Services/AnimationService.mjs";
-import EventService from "../Services/EventService.mjs";
+import AnimationService from "../banerService/AnimationService.mjs";
+import EventService from "../banerService/eventService.mjs";
 import { DOMElements } from "../index.mjs";
 
 export default function MouseDownHandler(event) {

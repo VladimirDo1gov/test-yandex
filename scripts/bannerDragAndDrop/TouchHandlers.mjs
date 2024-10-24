@@ -1,6 +1,5 @@
-import AnimationService from "../Services/AnimationService.mjs";
-import EventService from "../Services/EventService.mjs";
-
+import AnimationService from "../banerService/AnimationService.mjs";
+import EventService from "../banerService/eventService.mjs";
 class TouchHandlers {
     onTouchStart(event) {
         event.preventDefault();
