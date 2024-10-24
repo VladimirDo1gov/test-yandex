@@ -1,4 +1,5 @@
 import AnimationService from "../service/animationService.mjs";
+import ProductService from "../service/productService.mjs";
 import EventService from "../service/eventService.mjs";
 class TouchHandlers {
     onTouchStart(event) {
@@ -7,6 +8,7 @@ class TouchHandlers {
             EventService.isDragging = true;
             EventService.target = event.target.closest(".product-group-item");
             EventService.addSelectedClass();
+            ProductService.replaceDraggedTarget(EventService.target);
             EventService.moveAt(event);
             AnimationService.cartAddScale();
         }

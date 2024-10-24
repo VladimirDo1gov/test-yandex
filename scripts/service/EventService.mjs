@@ -36,6 +36,9 @@ class EventService {
                 ProductService.addProductIntoCart(this.target);
                 StoreService.addTargetToStore(this.target.id, this.addedProductArr);
             }
+            if (!this.dropTarget) {
+                ProductService.removeDraggedTarget(this.target);
+            }
         }
     }
     reset() {

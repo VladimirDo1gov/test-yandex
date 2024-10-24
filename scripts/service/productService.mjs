@@ -2,12 +2,14 @@ class ProductService {
     createPlaceholder(item) {
         const itemStyle = getComputedStyle(item);
         const div = document.createElement("div");
+        div.classList.add(`paceholder-${item.id}`);
         div.style.width = itemStyle.width;
         div.style.height = itemStyle.height;
+        div.style.background = "red";
         return div;
     }
 
-    fillRemoveItemPlace(item) {
+    replaceDraggedTarget(item) {
         const productGroupLevel = item.closest(".product-group-level");
         const div = this.createPlaceholder(item);
         if (productGroupLevel) {
@@ -19,8 +21,12 @@ class ProductService {
             if (previousSibling) {
                 previousSibling.insertAdjacentElement("afterEnd", div);
             }
-            item.remove();
         }
+    }
+
+    removeDraggedTarget(item) {
+        const placeHolderDraggedItem = document.querySelector(`.paceholder-${item.id}`);
+        placeHolderDraggedItem.remove();
     }
 
     addProductIntoCart(item) {

@@ -1,5 +1,6 @@
 import AnimationService from "../service/animationService.mjs";
 import EventService from "../service/eventService.mjs";
+import ProductService from "../service/productService.mjs";
 import { DOMElements } from "../index.mjs";
 
 export default function MouseDownHandler(event) {
@@ -8,8 +9,8 @@ export default function MouseDownHandler(event) {
         EventService.target = event.target.closest(".product-group-item");
         EventService.addSelectedClass();
         AnimationService.cartAddScale();
-
         EventService.moveAt(event); // Без этого предметы смещаются
+        ProductService.replaceDraggedTarget(EventService.target);
         DOMElements.banner.addEventListener("mousemove", onMouseMove);
         DOMElements.productGroup.addEventListener("mouseup", onMouseUp);
         EventService.target.ondragstart = () => {
@@ -26,6 +27,7 @@ function onMouseMove(event) {
 
 function onMouseUp() {
     DOMElements.banner.removeEventListener("mousemove", onMouseMove); // Не удалять
+    // ProductService.removeDraggedTarget();
     EventService.drop();
     EventService.checkState();
     EventService.reset();
