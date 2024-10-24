@@ -1,6 +1,9 @@
 import AnimationService from "./animationService.mjs";
 import ProductService from "./productService.mjs";
 import StoreService from "./storeService.mjs";
+import { DOMElements } from "../index.mjs";
+import MouseDownHandler from "../dragAndDrop/mouseDownHandler.mjs";
+import TouchHandlers from "../dragAndDrop/touchHandlers.mjs";
 
 class EventService {
     isDragging = false;
@@ -23,33 +26,9 @@ class EventService {
             const { clientX, clientY } = event.touches[0];
             this.getCoordinats(clientX, clientY);
         }
-        this.setLimitAtMove();
         this.target.style.left = this.shiftX + "px";
         this.target.style.top = this.shiftY + "px";
     }
-
-    getLimit() {
-        const borderMove = document.querySelector(".banner-section");
-        const { left, right, top, bottom } = borderMove.getBoundingClientRect();
-        console.log("left : ", left, "right : ", right, "top : ", top, "bottom : ", bottom);
-        return { left, right, top, bottom };
-    }
-
-    // Доделать
-    setLimitAtMove() {
-        const { left, right, top, bottom } = this.getLimit();
-        if (this.shiftX > right) {
-            this.shiftX = right;
-        } else if (this.shiftX < left) {
-            this.shiftX = left;
-        }
-        if (this.shiftY < top) {
-            this.shiftY = top;
-        } else if (this.shiftY > bottom) {
-            this.shiftY = bottom - this.target.clientHeight;
-        }
-    }
-
     drop() {
         if (this.target) {
             this.target.hidden = true;
@@ -66,8 +45,9 @@ class EventService {
         }
     }
     reset() {
-        this.isDragging = false;
         this.resetTarget();
+        this.isDragging = false;
+        this.dropTarget = null;
         this.shiftX = 0;
         this.shiftY = 0;
     }
@@ -94,6 +74,8 @@ class EventService {
             ProductService.removeClassesForProductItem();
             this.productCartIsFull();
             this.reset();
+            DOMElements.productGroup.removeEventListener("mousedown", MouseDownHandler);
+            DOMElements.productGroup.removeEventListener("touchstart", TouchHandlers.onTouchStart);
         }
     }
 }
