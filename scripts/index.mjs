@@ -4,7 +4,7 @@ import AnimationService from "./service/animationService.mjs";
 
 export const DOMElements = {
     get productGroup() {
-        return document.querySelector(".product-group");
+        return document.querySelector(".product-area-group");
     },
     get banner() {
         return document.querySelector(".banner-section");

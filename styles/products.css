@@ -37,14 +37,14 @@
     overflow: hidden;
     position: relative;
 }
-.banner {
+.product-area {
     margin: 0 auto;
     position: relative;
     min-width: 208.2px;
     width: fit-content;
     height: 575px;
 }
-.banner-background {
+.product-area-background {
     background-image: url("../img/closet.svg");
     position: relative;
     top: 25px;
@@ -52,24 +52,21 @@
     height: 100%;
     background-repeat: no-repeat;
     background-position: top center;
-    border: 4px solid black;
 }
-.product-group {
+.product-area-group {
     position: relative;
     height: 320px;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 126px 96px 96px;
+    grid-template-rows: 128px 96px 96px;
 }
 .product-group-level {
-    border: 1px solid blue;
     position: relative;
     width: 100%;
     min-width: 210px;
     height: 100%;
     display: flex;
-    gap: 2px;
     justify-content: space-between;
     align-items: end;
 }
@@ -80,21 +77,17 @@
     grid-template-columns: repeat(2, 50px);
     gap: 2px;
     align-items: end;
-    min-width: 50%;
 }
 .middle-col {
     grid-template-columns: 33px;
     min-width: 33%;
-    align-items: end;
 }
 
 .product-group-item-wrapper {
-    border: 2px solid green;
+    position: relative;
     width: fit-content;
 }
 .product-group-item {
-    /* border: 1px solid red; */
-    /* transition: 0.1s; */
 }
 
 .product-group-item > img {
@@ -105,7 +98,7 @@
 /*#endregion products */
 
 /*#region cart */
-.cart-container {
+.cart-area {
     position: relative;
     bottom: 180px;
     width: 100%;
