@@ -18,7 +18,7 @@
                                     <div class="product-group-level-col">
                                         <div class="product-group-item-wrapper">
                                             <div
-                                                class="product-group-item grab"
+                                                class="product-group-item"
                                                 data-selected="not-selected"
                                                 id="vine"
                                             >
@@ -26,19 +26,19 @@
                                             </div>
                                         </div>
                                         <div class="product-group-item-wrapper">
-                                            <div class="product-group-item grab" id="milk">
+                                            <div class="product-group-item" id="milk">
                                                 <img src="./img/up/milk.svg" alt="молоко" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-group-level-col">
                                         <div class="product-group-item-wrapper">
-                                            <div class="product-group-item grab" id="jam">
+                                            <div class="product-group-item" id="jam">
                                                 <img src="./img/up/jam.svg" alt="варенье" />
                                             </div>
                                         </div>
                                         <div class="product-group-item-wrapper">
-                                            <div class="product-group-item grab" id="cheese">
+                                            <div class="product-group-item" id="cheese">
                                                 <img src="./img/up/cheese.svg" alt="сыр" />
                                             </div>
                                         </div>
@@ -47,21 +47,21 @@
                                 <div class="product-group-level product-group-level-middle">
                                     <div class="product-group-level-col middle-col">
                                         <div class="product-group-item-wrapper">
-                                            <div class="product-group-item grab" id="meat">
+                                            <div class="product-group-item" id="meat">
                                                 <img src="./img/middle/meat.svg" alt="мясо" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-group-level-col middle-col">
                                         <div class="product-group-item-wrapper">
-                                            <div class="product-group-item grab" id="chicken">
+                                            <div class="product-group-item" id="chicken">
                                                 <img src="./img/middle/chicken.svg" alt="курица" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-group-level-col middle-col">
                                         <div class="product-group-item-wrapper">
-                                            <div class="product-group-item grab" id="cheeps">
+                                            <div class="product-group-item" id="cheeps">
                                                 <img src="./img/middle/cheeps.svg" alt="чипсы" />
                                             </div>
                                         </div>
@@ -70,24 +70,24 @@
                                 <div class="product-group-level product-group-level-low">
                                     <div class="product-group-level-col">
                                         <div class="product-group-item-wrapper">
-                                            <div class="product-group-item grab" id="pineapple">
+                                            <div class="product-group-item" id="pineapple">
                                                 <img src="./img/low/pineapple.svg" alt="ананас" />
                                             </div>
                                         </div>
                                         <div class="product-group-item-wrapper">
-                                            <div class="product-group-item grab" id="banana">
+                                            <div class="product-group-item" id="banana">
                                                 <img src="./img/low/banana.svg" alt="бананы" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-group-level-col">
                                         <div class="product-group-item-wrapper">
-                                            <div class="product-group-item grab" id="apple">
+                                            <div class="product-group-item" id="apple">
                                                 <img src="./img/low/apple.svg" alt="яблоко" />
                                             </div>
                                         </div>
                                         <div class="product-group-item-wrapper">
-                                            <div class="product-group-item grab" id="green">
+                                            <div class="product-group-item" id="green">
                                                 <img src="./img/low/green.svg" alt="зелень" />
                                             </div>
                                         </div>
@@ -97,11 +97,15 @@
                         </div>
                     </div>
                     <div class="cart-area">
-                        <div class="cart">
-                            <img src="./img/cart.svg" alt="Продуктовая корзина" />
+                        <div class="cart-area-wrapper">
+                            <div class="cart">
+                                <img src="./img/cart.svg" alt="Продуктовая корзина" />
+                            </div>
+                            <!-- Для добавляемых продуктов -->
+                            <div class="cart-grid">
+                                <div aria-hidden="true" class="cart-tooltip">Добавить</div>
+                            </div>
                         </div>
-                        <!-- Для добавляемых продуктов -->
-                        <div class="cart-grid"></div>
                     </div>
                     <a
                         aria-hidden

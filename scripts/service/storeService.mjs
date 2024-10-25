@@ -15,8 +15,7 @@ class StoreService {
     }
     checkStateCart() {
         if (this.stateCart.length > 2) {
-            animationService.butonAnimations();
-            productService.removeClassesForProductItem();
+            animationService.finallyAnimation();
             productService.disableItemsNotInCart();
             eventService.resetAll();
             DOMElements.productGroup.removeEventListener("mousedown", mouseDownHandler);

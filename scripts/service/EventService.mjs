@@ -37,15 +37,15 @@ class EventService {
         this.target.style.left = this.shiftX + "px";
         this.target.style.top = this.shiftY + "px";
     }
-
     drop() {
         if (this.target) {
+            const targetBottom = this.target.getBoundingClientRect().bottom;
             this.target.hidden = true;
             this.dropTarget = document
-                .elementFromPoint(this.shiftX, this.shiftY)
+                .elementFromPoint(this.shiftX, targetBottom)
                 ?.closest(".cart-area");
             this.target.hidden = false;
-            animationService.cartRemoveScale();
+            animationService.targetGrabing();
             if (this.dropTarget) {
                 productService.addProductIntoCart(this.target);
                 storeService.addTargetToStore(this.target.id);
@@ -59,29 +59,25 @@ class EventService {
         this.shiftX = 0;
         this.shiftY = 0;
     }
-
-    resetTargetOutsideBorderArea() {
-        this.resetAll();
-    }
     setLimitBorder(event) {
         const clientX = event.clientX;
         const clientY = event.clientY;
         const borderArea = document.documentElement;
         if (clientX + this.target.clientWidth > borderArea.clientWidth) {
-            this.resetTargetOutsideBorderArea(); //right border
+            this.resetAll(); //right border
         } else if (clientX - this.target.clientWidth < borderArea.offsetLeft) {
-            this.resetTargetOutsideBorderArea(); //left border
+            this.resetAll(); //left border
         } else if (clientY - this.target.clientWidth / 2 < borderArea.offsetTop) {
-            this.resetTargetOutsideBorderArea(); //up border
+            this.resetAll(); //up border
         } else if (clientY + this.target.clientWidth / 2 > borderArea.clientHeight) {
-            this.resetTargetOutsideBorderArea(); // down border
+            this.resetAll(); // down border
         }
     }
     isGrabing(event) {
         this.draggableTarget = true;
         this.target = event.target.closest(".product-group-item");
         productService.addClassSelected(this.target);
-        animationService.cartAddScale();
+        animationService.targetDrop();
         this.moveAt(event); // Без этого предметы смещаются
         this.target.ondragstart = () => false;
     }

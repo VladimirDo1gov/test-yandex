@@ -1,40 +1,32 @@
 import { DOMElements } from "../index.mjs";
+import animationService from "./animationService.mjs";
+import { addClass, removeClass } from "../lib/utils.mjs";
 
 class ProductService {
     classes = {
         draggedItem: "selected-item",
+        productIntoCart: "product-into-cart",
+        opacity: "opacity",
     };
 
     addProductIntoCart(item) {
         const cartGrid = document.querySelector(".cart-grid");
-        item.className = "product-into-cart";
+        item.className = this.classes.productIntoCart;
         cartGrid.append(item);
     }
 
     disableItemsNotInCart() {
         for (let item of DOMElements.productItems) {
-            item.classList.add("opacity");
-        }
-    }
-    removeClassesForProductItem() {
-        for (let item of DOMElements.productItems) {
-            item.classList.remove("grab");
+            addClass(item, this.classes.opacity);
         }
     }
     addClassSelected(item) {
-        if (!item.classList.contains(this.classes.draggedItem)) {
-            item.classList.add(this.classes.draggedItem);
-        }
+        addClass(item, this.classes.draggedItem);
     }
     resetSelectedItem(item) {
         if (item) {
-            if (item.classList.contains("rotate-to-left")) {
-                item.classList.remove("rotate-to-left");
-            }
-            if (item.classList.contains("rotate-to-right")) {
-                item.classList.remove("rotate-to-right");
-            }
-            item.classList.remove(this.classes.draggedItem);
+            animationService.removeRotateTarget(item);
+            removeClass(item, this.classes.draggedItem);
             item.style.position = "";
             item = null;
         }
