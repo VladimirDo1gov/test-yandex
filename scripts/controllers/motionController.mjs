@@ -1,4 +1,7 @@
-import animationService from "./animationService.mjs";
+// Отвечает за обработку события
+
+import cartAnimation from "../animation/cartAnimation.mjs";
+import grabedTargetAnimation from "../animation/grabedTargetAnimation.mjs";
 import productService from "./productService.mjs";
 import storeService from "./storeService.mjs";
 
@@ -14,10 +17,10 @@ class EventService {
         const previousX = this.previousX.shift();
         let currentX = event.clientX;
         if (previousX < currentX) {
-            animationService.rotateTargetToRight(this.target);
+            grabedTargetAnimation.rotateTargetToRight(this.target);
         }
         if (previousX > currentX) {
-            animationService.rotateTargetToLeft(this.target);
+            grabedTargetAnimation.rotateTargetToLeft(this.target);
         }
     }
 
@@ -45,7 +48,7 @@ class EventService {
                 .elementFromPoint(this.shiftX, targetBottom)
                 ?.closest(".cart-area");
             this.target.hidden = false;
-            animationService.targetGrabing();
+            cartAnimation.targetGrabing();
             if (this.dropTarget) {
                 productService.addProductIntoCart(this.target);
                 storeService.addTargetToStore(this.target.id);
@@ -77,7 +80,7 @@ class EventService {
         this.draggableTarget = true;
         this.target = event.target.closest(".product-group-item");
         productService.addClassSelected(this.target);
-        animationService.targetDrop();
+        cartAnimation.targetDrop();
         this.moveAt(event); // Без этого предметы смещаются
         this.target.ondragstart = () => false;
     }

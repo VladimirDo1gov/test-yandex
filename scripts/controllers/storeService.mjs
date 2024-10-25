@@ -1,11 +1,11 @@
 /* Следить за количеством предметов в корзине */
 
-import animationService from "./animationService.mjs";
 import productService from "./productService.mjs";
 import { DOMElements } from "../index.mjs";
-import eventService from "./eventService.mjs";
 import mouseDownHandler from "../dragAndDrop/mouseDownHandler.mjs";
 import touchHandlers from "../dragAndDrop/touchHandlers.mjs";
+import buttonAnimation from "../animation/buttonAnimation.mjs";
+import cartAnimation from "../animation/cartAnimation.mjs";
 class StoreService {
     stateCart = [];
 
@@ -15,9 +15,9 @@ class StoreService {
     }
     checkStateCart() {
         if (this.stateCart.length > 2) {
-            animationService.finallyAnimation();
+            buttonAnimation.butonAnimations();
+            cartAnimation.cartMove();
             productService.disableItemsNotInCart();
-            eventService.resetAll();
             DOMElements.productGroup.removeEventListener("mousedown", mouseDownHandler);
             DOMElements.productGroup.removeEventListener("touchstart", touchHandlers.onTouchStart);
         }

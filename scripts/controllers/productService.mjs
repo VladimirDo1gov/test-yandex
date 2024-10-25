@@ -1,6 +1,8 @@
+// Отвечает за изменение элементов
+
 import { DOMElements } from "../index.mjs";
-import animationService from "./animationService.mjs";
 import { addClass, removeClass } from "../lib/utils.mjs";
+import grabedTargetAnimation from "../animation/grabedTargetAnimation.mjs";
 
 class ProductService {
     classes = {
@@ -25,7 +27,7 @@ class ProductService {
     }
     resetSelectedItem(item) {
         if (item) {
-            animationService.removeRotateTarget(item);
+            grabedTargetAnimation.removeRotateTarget(item);
             removeClass(item, this.classes.draggedItem);
             item.style.position = "";
             item = null;
