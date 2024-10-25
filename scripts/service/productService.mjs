@@ -1,8 +1,8 @@
 import { DOMElements } from "../index.mjs";
-import eventService from "./eventService.mjs";
+
 class ProductService {
     classes = {
-        draggedItem: "selected",
+        draggedItem: "selected-item",
     };
 
     addProductIntoCart(item) {
