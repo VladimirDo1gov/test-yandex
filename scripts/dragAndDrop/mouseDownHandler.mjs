@@ -17,6 +17,7 @@ export default function MouseDownHandler(event) {
 function onMouseMove(event) {
     if (eventService.draggableTarget) {
         eventService.moveAt(event);
+        eventService.rotate(event);
         eventService.setLimitBorder(event);
     }
 }

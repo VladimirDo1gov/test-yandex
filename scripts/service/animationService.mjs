@@ -44,7 +44,6 @@ class AnimationService {
     butonAnimations() {
         this.showBannerButton();
         this.bannerButtonBlick();
-        this.bannerButtonBlick();
     }
 }
 

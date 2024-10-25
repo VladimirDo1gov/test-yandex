@@ -28,6 +28,12 @@ class ProductService {
     }
     resetSelectedItem(item) {
         if (item) {
+            if (item.classList.contains("rotate-to-left")) {
+                item.classList.remove("rotate-to-left");
+            }
+            if (item.classList.contains("rotate-to-right")) {
+                item.classList.remove("rotate-to-right");
+            }
             item.classList.remove(this.classes.draggedItem);
             item.style.position = "";
             item = null;

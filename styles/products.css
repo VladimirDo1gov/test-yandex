@@ -106,11 +106,13 @@
 }
 .cart-grid {
     position: absolute;
+    border-radius: 0 0 10px 10px;
     bottom: 24px;
     left: 66px;
     width: 60%;
     height: 80%;
     display: grid;
+    gap: 2px;
     grid-template-columns: repeat(4, 1fr);
     align-items: end;
 }
@@ -167,8 +169,45 @@
 /*#endregion button banner */
 
 .selected {
-    opacity: var(--opacity-sm) !important;
-    position: fixed !important;
-    transform: scale(1.2) !important;
-    z-index: 2000 !important;
+    opacity: var(--opacity-sm);
+    position: fixed;
+    transform: scale(1.2);
+    z-index: 2000;
+    cursor: grabbing;
+}
+
+.rotate-to-right {
+    animation: rotate-to-right 0.5s forwards;
+}
+.rotate-to-left {
+    animation: rotate-to-left 0.5s forwards;
+}
+.not-rotate {
+    animation: not-rotate 0.5s forwards;
+}
+
+@keyframes rotate-to-right {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(30deg);
+    }
+}
+@keyframes rotate-to-left {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(-30deg);
+    }
+}
+
+@keyframes not-rotate {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(0deg);
+    }
 }

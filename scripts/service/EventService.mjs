@@ -8,6 +8,28 @@ class EventService {
     shiftX = 0;
     shiftY = 0;
     dropTarget = null;
+    arr = [];
+    rotate(event) {
+        console.log(this.arr.length);
+        const a = this.arr.shift();
+        console.log("arr: ", a, "clientX: ", event.clientX);
+        if (a < event.clientX) {
+            if (!this.target.classList.contains("rotate-to-right")) {
+                this.target.classList.add("rotate-to-right");
+            }
+            if (this.target.classList.contains("rotate-to-left")) {
+                this.target.classList.remove("rotate-to-left");
+            }
+        }
+        if (a > event.clientX) {
+            if (!this.target.classList.contains("rotate-to-left")) {
+                this.target.classList.add("rotate-to-left");
+            }
+            if (this.target.classList.contains("rotate-to-right")) {
+                this.target.classList.remove("rotate-to-right");
+            }
+        }
+    }
 
     getCoordinats(clientX, clientY) {
         this.shiftX = clientX - this.target.clientWidth / 2;
@@ -21,14 +43,18 @@ class EventService {
             const { clientX, clientY } = event.touches[0];
             this.getCoordinats(clientX, clientY);
         }
-
+        this.arr.push(event.clientX);
+        this.direction = event.clientX;
         this.target.style.left = this.shiftX + "px";
         this.target.style.top = this.shiftY + "px";
     }
+
     drop() {
         if (this.target) {
             this.target.hidden = true;
-            this.dropTarget = document.elementFromPoint(this.shiftX, this.shiftY)?.closest(".cart");
+            this.dropTarget = document
+                .elementFromPoint(this.shiftX, this.shiftY)
+                ?.closest(".cart-area");
             this.target.hidden = false;
             animationService.cartRemoveScale();
             if (this.dropTarget) {
