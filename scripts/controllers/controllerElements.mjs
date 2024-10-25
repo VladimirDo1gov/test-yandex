@@ -4,7 +4,7 @@ import { DOMElements } from "../index.mjs";
 import { addClass, removeClass } from "../lib/utils.mjs";
 import grabedTargetAnimation from "../animation/grabedTargetAnimation.mjs";
 
-class ProductService {
+class ControllerElements {
     classes = {
         draggedItem: "selected-item",
         productIntoCart: "product-into-cart",
@@ -35,4 +35,4 @@ class ProductService {
     }
 }
 
-export default new ProductService();
+export default new ControllerElements();

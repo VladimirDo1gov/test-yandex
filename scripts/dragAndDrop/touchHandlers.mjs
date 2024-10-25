@@ -1,22 +1,22 @@
-import motionController from "../controllers/motionController.mjs";
-import storeService from "../controllers/storeService.mjs";
+import controllerMotion from "../controllers/controllerMotion.mjs";
+import controllerStorage from "../controllers/controllerStorage.mjs";
 
 class TouchHandlers {
     onTouchStart(event) {
         event.preventDefault();
         if (event.target.closest(".product-group-item")) {
-            motionController.isGrabing(event);
+            controllerMotion.isGrabing(event);
         }
     }
     onTouchMove(event) {
-        if (motionController.draggableTarget && motionController.target) {
-            motionController.moveAt(event);
+        if (controllerMotion.draggableTarget && controllerMotion.target) {
+            controllerMotion.moveAt(event);
         }
     }
     onTouchEnd() {
-        motionController.drop();
-        storeService.checkStateCart();
-        motionController.resetAll();
+        controllerMotion.drop();
+        controllerStorage.checkStateCart();
+        controllerMotion.resetAll();
     }
 }
 

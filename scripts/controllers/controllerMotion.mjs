@@ -2,10 +2,10 @@
 
 import cartAnimation from "../animation/cartAnimation.mjs";
 import grabedTargetAnimation from "../animation/grabedTargetAnimation.mjs";
-import productService from "./productService.mjs";
-import storeService from "./storeService.mjs";
+import controllerElements from "./controllerElements.mjs";
+import controllerStorage from "./controllerStorage.mjs";
 
-class EventService {
+class ControllerMotion {
     draggableTarget = false;
     target = null;
     shiftX = 0;
@@ -50,13 +50,13 @@ class EventService {
             this.target.hidden = false;
             cartAnimation.targetGrabing();
             if (this.dropTarget) {
-                productService.addProductIntoCart(this.target);
-                storeService.addTargetToStore(this.target.id);
+                controllerElements.addProductIntoCart(this.target);
+                controllerStorage.addTargetToStore(this.target.id);
             }
         }
     }
     resetAll() {
-        productService.resetSelectedItem(this.target);
+        controllerElements.resetSelectedItem(this.target);
         this.draggableTarget = false;
         this.dropTarget = null;
         this.shiftX = 0;
@@ -79,11 +79,11 @@ class EventService {
     isGrabing(event) {
         this.draggableTarget = true;
         this.target = event.target.closest(".product-group-item");
-        productService.addClassSelected(this.target);
+        controllerElements.addClassSelected(this.target);
         cartAnimation.targetDrop();
         this.moveAt(event); // Без этого предметы смещаются
         this.target.ondragstart = () => false;
     }
 }
 
-export default new EventService();
+export default new ControllerMotion();

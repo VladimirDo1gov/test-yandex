@@ -1,15 +1,17 @@
 import buttonAnimation from "../animation/buttonAnimation.mjs";
 import cartAnimation from "../animation/cartAnimation.mjs";
-import productService from "./productService.mjs";
+import controllerElements from "./controllerElements.mjs";
 import { DOMElements } from "../index.mjs";
+import mouseDownHandler from "../dragAndDrop/mouseDownHandler.mjs";
+import touchHandlers from "../dragAndDrop/touchHandlers.mjs";
 
-class eventController {
+class ControllerEvent {
     finishEvent() {
         buttonAnimation.butonAnimations();
         cartAnimation.cartMove();
-        productService.disableItemsNotInCart();
+        controllerElements.disableItemsNotInCart();
         DOMElements.productGroup.removeEventListener("mousedown", mouseDownHandler);
         DOMElements.productGroup.removeEventListener("touchstart", touchHandlers.onTouchStart);
     }
 }
-export default new Service();
+export default new ControllerEvent();
