@@ -8,26 +8,16 @@ class EventService {
     shiftX = 0;
     shiftY = 0;
     dropTarget = null;
-    arr = [];
+    previousX = [];
+
     rotate(event) {
-        console.log(this.arr.length);
-        const a = this.arr.shift();
-        console.log("arr: ", a, "clientX: ", event.clientX);
-        if (a < event.clientX) {
-            if (!this.target.classList.contains("rotate-to-right")) {
-                this.target.classList.add("rotate-to-right");
-            }
-            if (this.target.classList.contains("rotate-to-left")) {
-                this.target.classList.remove("rotate-to-left");
-            }
+        const previousX = this.previousX.shift();
+        let currentX = event.clientX;
+        if (previousX < currentX) {
+            animationService.rotateTargetToRight(this.target);
         }
-        if (a > event.clientX) {
-            if (!this.target.classList.contains("rotate-to-left")) {
-                this.target.classList.add("rotate-to-left");
-            }
-            if (this.target.classList.contains("rotate-to-right")) {
-                this.target.classList.remove("rotate-to-right");
-            }
+        if (previousX > currentX) {
+            animationService.rotateTargetToLeft(this.target);
         }
     }
 
@@ -38,13 +28,12 @@ class EventService {
     moveAt(event) {
         if (event.clientX) {
             this.getCoordinats(event.clientX, event.clientY);
+            this.previousX.push(event.clientX);
         }
         if (event.touches) {
             const { clientX, clientY } = event.touches[0];
             this.getCoordinats(clientX, clientY);
         }
-        this.arr.push(event.clientX);
-        this.direction = event.clientX;
         this.target.style.left = this.shiftX + "px";
         this.target.style.top = this.shiftY + "px";
     }
@@ -88,9 +77,11 @@ class EventService {
             this.resetTargetOutsideBorderArea(); // down border
         }
     }
-    isDragging(event) {
+    isGrabing(event) {
         this.draggableTarget = true;
         this.target = event.target.closest(".product-group-item");
+        productService.addClassSelected(this.target);
+        animationService.cartAddScale();
         this.moveAt(event); // Без этого предметы смещаются
         this.target.ondragstart = () => false;
     }

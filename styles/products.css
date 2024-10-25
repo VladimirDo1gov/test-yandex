@@ -177,37 +177,55 @@
 }
 
 .rotate-to-right {
-    animation: rotate-to-right 0.5s forwards;
+    animation: rotate-to-right 0.7s forwards ease-in-out;
 }
 .rotate-to-left {
-    animation: rotate-to-left 0.5s forwards;
-}
-.not-rotate {
-    animation: not-rotate 0.5s forwards;
+    animation: rotate-to-left 0.7s forwards ease-in-out;
 }
 
 @keyframes rotate-to-right {
-    from {
+    0% {
         transform: rotate(0);
     }
-    to {
+    10% {
+        transform: rotate(40deg);
+    }
+    30% {
         transform: rotate(30deg);
+    }
+    50% {
+        transform: rotate(20deg);
+    }
+    75% {
+        transform: rotate(-16deg);
+    }
+    90% {
+        transform: rotate(16deg);
+    }
+    100% {
+        transform: rotate(0deg);
     }
 }
 @keyframes rotate-to-left {
-    from {
+    0% {
         transform: rotate(0);
     }
-    to {
+    10% {
+        transform: rotate(-40deg);
+    }
+    30% {
         transform: rotate(-30deg);
     }
-}
-
-@keyframes not-rotate {
-    from {
-        transform: rotate(0);
+    50% {
+        transform: rotate(-20deg);
     }
-    to {
+    75% {
+        transform: rotate(16deg);
+    }
+    90% {
+        transform: rotate(-16deg);
+    }
+    100% {
         transform: rotate(0deg);
     }
 }

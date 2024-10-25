@@ -39,9 +39,6 @@ class ProductService {
             item = null;
         }
     }
-    targetIsGrabing() {
-        this.addClassSelected(eventService.target);
-    }
 }
 
 export default new ProductService();

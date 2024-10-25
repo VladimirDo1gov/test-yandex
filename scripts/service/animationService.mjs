@@ -4,6 +4,8 @@ class AnimationService {
     classes = {
         isScale: "cart-scale",
         notScale: "cart-not-scale",
+        rotateRoRight: "rotate-to-right",
+        rotateToLeft: "rotate-to-left",
     };
     cartAddScale() {
         if (DOMElements.cart.classList.contains(this.classes.notScale)) {
@@ -40,6 +42,22 @@ class AnimationService {
         setTimeout(() => {
             clearInterval(timerId);
         }, 5000);
+    }
+    rotateTargetToRight(item) {
+        if (!item.classList.contains(this.classes.rotateRoRight)) {
+            item.classList.add(this.classes.rotateRoRight);
+        }
+        if (item.classList.contains(this.classes.rotateToLeft)) {
+            item.classList.remove(this.classes.rotateToLeft);
+        }
+    }
+    rotateTargetToLeft(item) {
+        if (!item.classList.contains(this.classes.rotateToLeft)) {
+            item.classList.add(this.classes.rotateToLeft);
+        }
+        if (item.classList.contains(this.classes.rotateRoRight)) {
+            item.classList.remove(this.classes.rotateRoRight);
+        }
     }
     butonAnimations() {
         this.showBannerButton();
