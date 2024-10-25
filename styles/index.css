@@ -32,9 +32,6 @@ a {
 .opacity {
     opacity: var(--opacity-sm);
 }
-.can-choose:hover {
-    transform: scale(1.1);
-}
 
 /*#region button */
 .btn-default {

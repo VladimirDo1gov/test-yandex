@@ -35,10 +35,6 @@ class EventService {
                 productService.addProductIntoCart(this.target);
                 storeService.addTargetToStore(this.target.id);
             }
-            // Чтобы реплейсер не удалялся если элемент остался в корзине
-            // if (!this.dropTarget) {
-            //     productService.removeReplaceDraggedTarget(this.target);
-            // }
         }
     }
     resetAll() {
@@ -50,7 +46,6 @@ class EventService {
     }
 
     resetTargetOutsideBorderArea() {
-        // productService.removeReplaceDraggedTarget(this.target);
         this.resetAll();
     }
     setLimitBorder(event) {
