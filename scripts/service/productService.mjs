@@ -1,6 +1,9 @@
 import { DOMElements } from "../index.mjs";
+import EventService from "./eventService.mjs";
 class ProductService {
-    draggetItemClass = "selected";
+    classes = {
+        draggedItem: "selected",
+    };
 
     createPlaceholder(item) {
         const itemStyle = getComputedStyle(item);
@@ -51,16 +54,20 @@ class ProductService {
         }
     }
     addClassSelected(item) {
-        if (!item.classList.contains(this.draggetItemClass)) {
-            item.classList.add(this.draggetItemClass);
+        if (!item.classList.contains(this.classes.draggedItem)) {
+            item.classList.add(this.classes.draggedItem);
         }
     }
     resetSelectedItem(item) {
         if (item) {
-            item.classList.remove(this.draggetItemClass);
+            item.classList.remove(this.classes.draggedItem);
             item.style.position = "";
             item = null;
         }
+    }
+    targetIsGrabing() {
+        this.addClassSelected(EventService.target);
+        this.replaceDraggedTarget(EventService.target);
     }
 }
 

@@ -1,18 +1,13 @@
 import AnimationService from "./animationService.mjs";
 import ProductService from "./productService.mjs";
 import StoreService from "./storeService.mjs";
-import { DOMElements } from "../index.mjs";
-import MouseDownHandler from "../dragAndDrop/mouseDownHandler.mjs";
-import TouchHandlers from "../dragAndDrop/touchHandlers.mjs";
 
 class EventService {
-    isDragging = false;
+    draggableTarget = false;
     target = null;
     shiftX = 0;
     shiftY = 0;
     dropTarget = null;
-    addedProductArr = [];
-    draggetItemClass = "selected";
 
     getCoordinats(clientX, clientY) {
         this.shiftX = clientX + window.scrollX - this.target.clientWidth / 2;
@@ -38,7 +33,7 @@ class EventService {
             AnimationService.cartRemoveScale();
             if (this.dropTarget) {
                 ProductService.addProductIntoCart(this.target);
-                StoreService.addTargetToStore(this.target.id, this.addedProductArr);
+                StoreService.addTargetToStore(this.target.id);
             }
             // Чтобы реплейсер не удалялся если элемент остался в корзине
             if (!this.dropTarget) {
@@ -48,21 +43,12 @@ class EventService {
     }
     resetAll() {
         ProductService.resetSelectedItem(this.target);
-        this.isDragging = false;
+        this.draggableTarget = false;
         this.dropTarget = null;
         this.shiftX = 0;
         this.shiftY = 0;
     }
-    checkCartIsFulled() {
-        if (StoreService.storeCheck(this.addedProductArr)) {
-            AnimationService.showBannerButton();
-            ProductService.removeClassesForProductItem();
-            ProductService.disableItemsNotInCart();
-            this.resetAll();
-            DOMElements.productGroup.removeEventListener("mousedown", MouseDownHandler);
-            DOMElements.productGroup.removeEventListener("touchstart", TouchHandlers.onTouchStart);
-        }
-    }
+
     resetTargetOutsideBorderArea() {
         ProductService.removeReplaceDraggedTarget(this.target);
         this.resetAll();
@@ -80,6 +66,12 @@ class EventService {
         } else if (clientY + this.target.clientWidth / 2 > borderArea.clientHeight) {
             this.resetTargetOutsideBorderArea(); // down border
         }
+    }
+    isDragging(event) {
+        this.draggableTarget = true;
+        this.target = event.target.closest(".product-group-item");
+        this.moveAt(event); // Без этого предметы смещаются
+        this.target.ondragstart = () => false;
     }
 }
 

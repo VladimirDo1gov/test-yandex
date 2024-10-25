@@ -1,26 +1,25 @@
 import AnimationService from "../service/animationService.mjs";
 import ProductService from "../service/productService.mjs";
 import EventService from "../service/eventService.mjs";
+import StoreService from "../service/storeService.mjs";
+
 class TouchHandlers {
     onTouchStart(event) {
         event.preventDefault();
         if (event.target.closest(".product-group-item")) {
-            EventService.isDragging = true;
-            EventService.target = event.target.closest(".product-group-item");
-            ProductService.addClassSelected(EventService.target);
-            ProductService.replaceDraggedTarget(EventService.target);
-            EventService.moveAt(event);
+            EventService.isDragging(event);
+            ProductService.targetIsGrabing();
             AnimationService.cartAddScale();
         }
     }
     onTouchMove(event) {
-        if (EventService.isDragging && EventService.target) {
+        if (EventService.draggableTarget && EventService.target) {
             EventService.moveAt(event);
         }
     }
     onTouchEnd() {
         EventService.drop();
-        EventService.checkCartIsFulled();
+        StoreService.checkStateCart();
         EventService.resetAll();
     }
 }

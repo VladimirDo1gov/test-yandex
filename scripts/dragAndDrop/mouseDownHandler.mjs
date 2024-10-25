@@ -2,25 +2,20 @@ import AnimationService from "../service/animationService.mjs";
 import EventService from "../service/eventService.mjs";
 import ProductService from "../service/productService.mjs";
 import { DOMElements } from "../index.mjs";
+import StoreService from "../service/storeService.mjs";
 
 export default function MouseDownHandler(event) {
     if (event.target.closest(".product-group-item")) {
-        EventService.isDragging = true;
-        EventService.target = event.target.closest(".product-group-item");
-        ProductService.addClassSelected(EventService.target);
+        EventService.isDragging(event);
+        ProductService.targetIsGrabing();
         AnimationService.cartAddScale();
-        EventService.moveAt(event); // Без этого предметы смещаются
-        ProductService.replaceDraggedTarget(EventService.target);
         document.addEventListener("mousemove", onMouseMove);
         DOMElements.productGroup.addEventListener("mouseup", onMouseUp);
-        EventService.target.ondragstart = () => {
-            return false;
-        };
     }
 }
 
 function onMouseMove(event) {
-    if (EventService.isDragging) {
+    if (EventService.draggableTarget) {
         EventService.moveAt(event);
         EventService.setLimitBorder(event);
     }
@@ -29,6 +24,6 @@ function onMouseMove(event) {
 function onMouseUp() {
     document.removeEventListener("mousemove", onMouseMove); // Не удалять
     EventService.drop();
-    EventService.checkCartIsFulled();
+    StoreService.checkStateCart();
     EventService.resetAll();
 }
