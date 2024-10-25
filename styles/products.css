@@ -1,4 +1,18 @@
 /*#region animation */
+.rotate-to-right {
+    animation: rotate-to-right 0.7s forwards ease-in-out;
+}
+.rotate-to-left {
+    animation: rotate-to-left 0.7s forwards ease-in-out;
+}
+.cart-scale {
+    transition: 0.4s;
+    animation: cart-scale forwards 0.3s ease-in-out;
+}
+.cart-not-scale {
+    animation: cart-return-not-scale 0.4s ease-in-out;
+    transition: 0.4s;
+}
 @keyframes cart-return-not-scale {
     from {
         transform: scale(1.04);
@@ -25,6 +39,52 @@
     }
     to {
         bottom: 10px;
+    }
+}
+@keyframes rotate-to-right {
+    0% {
+        transform: rotate(0);
+    }
+    10% {
+        transform: rotate(30deg);
+    }
+    30% {
+        transform: rotate(20deg);
+    }
+    50% {
+        transform: rotate(10deg);
+    }
+    75% {
+        transform: rotate(-6deg);
+    }
+    90% {
+        transform: rotate(6deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+@keyframes rotate-to-left {
+    0% {
+        transform: rotate(0);
+    }
+    10% {
+        transform: rotate(-30deg);
+    }
+    30% {
+        transform: rotate(-20deg);
+    }
+    50% {
+        transform: rotate(-10deg);
+    }
+    75% {
+        transform: rotate(6deg);
+    }
+    90% {
+        transform: rotate(-6deg);
+    }
+    100% {
+        transform: rotate(0deg);
     }
 }
 /*#endregion animation */
@@ -128,14 +188,6 @@
     bottom: 0px;
     left: 100px;
 }
-.cart-scale {
-    transition: 0.4s;
-    animation: cart-scale forwards 0.3s ease-in-out;
-}
-.cart-not-scale {
-    animation: cart-return-not-scale 0.4s ease-in-out;
-    transition: 0.4s;
-}
 
 /*#endregion cart */
 
@@ -174,58 +226,4 @@
     transform: scale(1.2);
     z-index: 2000;
     cursor: grabbing;
-}
-
-.rotate-to-right {
-    animation: rotate-to-right 0.7s forwards ease-in-out;
-}
-.rotate-to-left {
-    animation: rotate-to-left 0.7s forwards ease-in-out;
-}
-
-@keyframes rotate-to-right {
-    0% {
-        transform: rotate(0);
-    }
-    10% {
-        transform: rotate(40deg);
-    }
-    30% {
-        transform: rotate(30deg);
-    }
-    50% {
-        transform: rotate(20deg);
-    }
-    75% {
-        transform: rotate(-16deg);
-    }
-    90% {
-        transform: rotate(16deg);
-    }
-    100% {
-        transform: rotate(0deg);
-    }
-}
-@keyframes rotate-to-left {
-    0% {
-        transform: rotate(0);
-    }
-    10% {
-        transform: rotate(-40deg);
-    }
-    30% {
-        transform: rotate(-30deg);
-    }
-    50% {
-        transform: rotate(-20deg);
-    }
-    75% {
-        transform: rotate(16deg);
-    }
-    90% {
-        transform: rotate(-16deg);
-    }
-    100% {
-        transform: rotate(0deg);
-    }
 }
