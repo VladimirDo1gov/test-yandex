@@ -25,9 +25,15 @@ class AnimationService {
     bannerButtonBlick() {
         const delay = 500;
         let timerId = setInterval(() => {
+            if (DOMElements.bannerButton.classList.contains("btn-not-blick")) {
+                DOMElements.bannerButton.classList.remove("btn-not-blick");
+            }
             DOMElements.bannerButton.classList.add("btn-blick");
             setTimeout(() => {
-                DOMElements.bannerButton.classList.remove("btn-blick");
+                if (DOMElements.bannerButton.classList.contains("btn-blick")) {
+                    DOMElements.bannerButton.classList.remove("btn-blick");
+                }
+                DOMElements.bannerButton.classList.add("btn-not-blick");
             }, delay);
         }, delay * 2);
 

@@ -10,8 +10,8 @@ class EventService {
     dropTarget = null;
 
     getCoordinats(clientX, clientY) {
-        this.shiftX = clientX + window.scrollX - this.target.clientWidth / 2;
-        this.shiftY = clientY + window.scrollY - this.target.clientHeight / 2;
+        this.shiftX = clientX - this.target.clientWidth / 2;
+        this.shiftY = clientY - this.target.clientHeight / 2;
     }
     moveAt(event) {
         if (event.clientX) {
