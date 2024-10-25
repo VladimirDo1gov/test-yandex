@@ -8,6 +8,12 @@ export const DOMElements = {
     get banner() {
         return document.querySelector(".banner-section");
     },
+    get productItems() {
+        return document.querySelectorAll(".product-group-item");
+    },
+    get cart() {
+        return document.querySelector(".cart");
+    },
 };
 
 document.addEventListener("DOMContentLoaded", () => {

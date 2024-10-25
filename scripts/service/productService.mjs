@@ -1,4 +1,7 @@
+import { DOMElements } from "../index.mjs";
 class ProductService {
+    draggetItemClass = "selected";
+
     createPlaceholder(item) {
         const itemStyle = getComputedStyle(item);
         const div = document.createElement("div");
@@ -23,10 +26,11 @@ class ProductService {
             }
         }
     }
-
     removeReplaceDraggedTarget(item) {
         const placeHolderDraggedItem = document.querySelector(`.paceholder-${item.id}`);
-        placeHolderDraggedItem.remove();
+        if (placeHolderDraggedItem) {
+            placeHolderDraggedItem.remove();
+        }
     }
 
     addProductIntoCart(item) {
@@ -35,26 +39,28 @@ class ProductService {
         cartGrid.append(item);
     }
 
-    addClassesForProductItem() {
-        const productItems = document.querySelectorAll(".product-group-item");
-        for (let item of productItems) {
+    disableItemsNotInCart() {
+        for (let item of DOMElements.productItems) {
             item.classList.add("opacity");
         }
     }
-
     removeClassesForProductItem() {
-        const productItems = document.querySelectorAll(".product-group-item");
-        for (let item of productItems) {
+        for (let item of DOMElements.productItems) {
             item.classList.remove("grab");
             item.classList.remove("can-choose");
         }
     }
-
-    showBannerButton() {
-        const buttonSubmitPay = document.querySelector("#button-submit-pay");
-        buttonSubmitPay.classList.add("btn-outside-banner");
-        buttonSubmitPay.classList.add("btn-inside-banner");
-        buttonSubmitPay.removeAttribute("aria-hidden");
+    addClassSelected(item) {
+        if (!item.classList.contains(this.draggetItemClass)) {
+            item.classList.add(this.draggetItemClass);
+        }
+    }
+    resetSelectedItem(item) {
+        if (item) {
+            item.classList.remove(this.draggetItemClass);
+            item.style.position = "";
+            item = null;
+        }
     }
 }
 

@@ -1,17 +1,27 @@
+import { DOMElements } from "../index.mjs";
+
 class AnimationService {
+    classes = {
+        isScale: "cart-scale",
+        notScale: "cart-not-scale",
+    };
     cartAddScale() {
-        const cart = document.querySelector(".cart");
-        if (cart.classList.contains("cart-not-scale")) {
-            cart.classList.remove("cart-not-scale");
+        if (DOMElements.cart.classList.contains(this.classes.notScale)) {
+            DOMElements.cart.classList.remove(this.classes.notScale);
         }
-        cart.classList.add("cart-scale");
+        cart.classList.add(this.classes.isScale);
     }
     cartRemoveScale() {
-        const cart = document.querySelector(".cart");
-        if (cart.classList.contains("cart-scale")) {
-            cart.classList.remove("cart-scale");
+        if (DOMElements.cart.classList.contains(this.classes.isScale)) {
+            DOMElements.cart.classList.remove(this.classes.isScale);
         }
-        cart.classList.add("cart-not-scale");
+        cart.classList.add(this.classes.notScale);
+    }
+    showBannerButton() {
+        const buttonSubmitPay = document.querySelector("#button-submit-pay");
+        buttonSubmitPay.classList.add("btn-outside-banner");
+        buttonSubmitPay.classList.add("btn-inside-banner");
+        buttonSubmitPay.removeAttribute("aria-hidden");
     }
 }
 

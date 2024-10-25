@@ -7,7 +7,7 @@ class TouchHandlers {
         if (event.target.closest(".product-group-item")) {
             EventService.isDragging = true;
             EventService.target = event.target.closest(".product-group-item");
-            EventService.addSelectedClass();
+            ProductService.addClassSelected(EventService.target);
             ProductService.replaceDraggedTarget(EventService.target);
             EventService.moveAt(event);
             AnimationService.cartAddScale();
@@ -20,8 +20,8 @@ class TouchHandlers {
     }
     onTouchEnd() {
         EventService.drop();
-        EventService.reset();
-        EventService.checkState();
+        EventService.checkCartIsFulled();
+        EventService.resetAll();
     }
 }
 

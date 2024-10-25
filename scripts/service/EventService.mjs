@@ -46,38 +46,39 @@ class EventService {
             }
         }
     }
-    reset() {
-        this.resetTarget();
+    resetAll() {
+        ProductService.resetSelectedItem(this.target);
         this.isDragging = false;
         this.dropTarget = null;
         this.shiftX = 0;
         this.shiftY = 0;
     }
-    resetTarget() {
-        if (this.target) {
-            this.target.classList.remove(this.draggetItemClass);
-            this.target.style.position = "";
-            this.target = null;
-        }
-    }
-    productCartIsFull() {
-        ProductService.showBannerButton();
-        ProductService.addClassesForProductItem();
-    }
-    addSelectedClass() {
-        if (!this.target.classList.contains(this.draggetItemClass)) {
-            this.target.classList.add(this.draggetItemClass);
-        }
-    }
-    checkState() {
-        StoreService.storeCheck(this.addedProductArr);
-        if (StoreService.isFulled) {
-            this.isDragging = false;
+    checkCartIsFulled() {
+        if (StoreService.storeCheck(this.addedProductArr)) {
+            AnimationService.showBannerButton();
             ProductService.removeClassesForProductItem();
-            this.productCartIsFull();
-            this.reset();
+            ProductService.disableItemsNotInCart();
+            this.resetAll();
             DOMElements.productGroup.removeEventListener("mousedown", MouseDownHandler);
             DOMElements.productGroup.removeEventListener("touchstart", TouchHandlers.onTouchStart);
+        }
+    }
+    resetTargetOutsideBorderArea() {
+        ProductService.removeReplaceDraggedTarget(this.target);
+        this.resetAll();
+    }
+    setLimitBorder(event) {
+        const clientX = event.clientX;
+        const clientY = event.clientY;
+        const borderArea = document.documentElement;
+        if (clientX + this.target.clientWidth > borderArea.clientWidth) {
+            this.resetTargetOutsideBorderArea(); //right border
+        } else if (clientX - this.target.clientWidth < borderArea.offsetLeft) {
+            this.resetTargetOutsideBorderArea(); //left border
+        } else if (clientY - this.target.clientWidth / 2 < borderArea.offsetTop) {
+            this.resetTargetOutsideBorderArea(); //up border
+        } else if (clientY + this.target.clientWidth / 2 > borderArea.clientHeight) {
+            this.resetTargetOutsideBorderArea(); // down border
         }
     }
 }
