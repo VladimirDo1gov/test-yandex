@@ -1,11 +1,11 @@
 /* Следить за количеством предметов в корзине */
 
-import AnimationService from "./animationService.mjs";
-import ProductService from "./productService.mjs";
+import animationService from "./animationService.mjs";
+import productService from "./productService.mjs";
 import { DOMElements } from "../index.mjs";
-import EventService from "./eventService.mjs";
-import MouseDownHandler from "../dragAndDrop/mouseDownHandler.mjs";
-import TouchHandlers from "../dragAndDrop/touchHandlers.mjs";
+import eventService from "./eventService.mjs";
+import mouseDownHandler from "../dragAndDrop/mouseDownHandler.mjs";
+import touchHandlers from "../dragAndDrop/touchHandlers.mjs";
 class StoreService {
     stateCart = [];
 
@@ -15,12 +15,12 @@ class StoreService {
     }
     checkStateCart() {
         if (this.stateCart.length > 2) {
-            AnimationService.butonAnimations();
-            ProductService.removeClassesForProductItem();
-            ProductService.disableItemsNotInCart();
-            EventService.resetAll();
-            DOMElements.productGroup.removeEventListener("mousedown", MouseDownHandler);
-            DOMElements.productGroup.removeEventListener("touchstart", TouchHandlers.onTouchStart);
+            animationService.butonAnimations();
+            productService.removeClassesForProductItem();
+            productService.disableItemsNotInCart();
+            eventService.resetAll();
+            DOMElements.productGroup.removeEventListener("mousedown", mouseDownHandler);
+            DOMElements.productGroup.removeEventListener("touchstart", touchHandlers.onTouchStart);
         }
     }
 }

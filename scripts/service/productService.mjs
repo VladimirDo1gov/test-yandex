@@ -1,5 +1,5 @@
 import { DOMElements } from "../index.mjs";
-import EventService from "./eventService.mjs";
+import eventService from "./eventService.mjs";
 class ProductService {
     classes = {
         draggedItem: "selected",
@@ -66,8 +66,8 @@ class ProductService {
         }
     }
     targetIsGrabing() {
-        this.addClassSelected(EventService.target);
-        this.replaceDraggedTarget(EventService.target);
+        this.addClassSelected(eventService.target);
+        this.replaceDraggedTarget(eventService.target);
     }
 }
 

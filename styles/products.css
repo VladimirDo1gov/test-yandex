@@ -1,16 +1,3 @@
-.cart-scale {
-    transition: 0.4s;
-    animation: cart-scale forwards 0.3s ease-in-out;
-}
-.cart-not-scale {
-    animation: cart-return-not-scale 0.4s ease-in-out;
-    transition: 0.4s;
-}
-.can-choose:hover {
-    transform: scale(1.1);
-    transition: 0.3s;
-}
-
 /*#region animation */
 @keyframes cart-return-not-scale {
     from {
@@ -144,13 +131,20 @@
     bottom: 0px;
     left: 100px;
 }
+.cart-scale {
+    transition: 0.4s;
+    animation: cart-scale forwards 0.3s ease-in-out;
+}
+.cart-not-scale {
+    animation: cart-return-not-scale 0.4s ease-in-out;
+    transition: 0.4s;
+}
 
 /*#endregion cart */
 
 /*#region button banner */
 .btn-banner {
     position: absolute;
-    /* bottom: 0px; */
     left: 40px;
     z-index: 30000;
     border: 2px solid rgba(0, 0, 0, 0);

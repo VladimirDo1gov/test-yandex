@@ -1,6 +1,6 @@
-import AnimationService from "./animationService.mjs";
-import ProductService from "./productService.mjs";
-import StoreService from "./storeService.mjs";
+import animationService from "./animationService.mjs";
+import productService from "./productService.mjs";
+import storeService from "./storeService.mjs";
 
 class EventService {
     draggableTarget = false;
@@ -30,19 +30,19 @@ class EventService {
             this.target.hidden = true;
             this.dropTarget = document.elementFromPoint(this.shiftX, this.shiftY)?.closest(".cart");
             this.target.hidden = false;
-            AnimationService.cartRemoveScale();
+            animationService.cartRemoveScale();
             if (this.dropTarget) {
-                ProductService.addProductIntoCart(this.target);
-                StoreService.addTargetToStore(this.target.id);
+                productService.addProductIntoCart(this.target);
+                storeService.addTargetToStore(this.target.id);
             }
             // Чтобы реплейсер не удалялся если элемент остался в корзине
             if (!this.dropTarget) {
-                ProductService.removeReplaceDraggedTarget(this.target);
+                productService.removeReplaceDraggedTarget(this.target);
             }
         }
     }
     resetAll() {
-        ProductService.resetSelectedItem(this.target);
+        productService.resetSelectedItem(this.target);
         this.draggableTarget = false;
         this.dropTarget = null;
         this.shiftX = 0;
@@ -50,7 +50,7 @@ class EventService {
     }
 
     resetTargetOutsideBorderArea() {
-        ProductService.removeReplaceDraggedTarget(this.target);
+        productService.removeReplaceDraggedTarget(this.target);
         this.resetAll();
     }
     setLimitBorder(event) {
