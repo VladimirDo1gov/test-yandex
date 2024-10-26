@@ -1,10 +1,10 @@
 import buttonEffects from "../animation/buttonEffects.mjs";
 import cartEffects from "../animation/cartEffects.mjs";
-import controlElements from "./controlElements.mjs";
-import mouseDownHandler from "../eventHandlers/mouseDownHandler.mjs";
-import touchHandlers from "../eventHandlers/touchHandlers.mjs";
-import controllMotion from "./controllMotion.mjs";
-import storage from "./storage.mjs";
+import controlElements from "../features/controlElements.mjs";
+import mouseDownHandler from "./mouseDownHandler.mjs";
+import touchHandlers from "./touchHandlers.mjs";
+import controllMotion from "../features/controllMotion.mjs";
+import storage from "../features/storage.mjs";
 
 class ControllEvent {
     draggableTarget = false;

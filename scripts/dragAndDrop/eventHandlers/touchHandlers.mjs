@@ -1,4 +1,4 @@
-import controllEvent from "../features/controllEvent.mjs";
+import controllEvent from "./controllEvent.mjs";
 
 class TouchHandlers {
     onTouchStart(event) {

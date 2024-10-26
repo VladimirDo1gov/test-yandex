@@ -1,6 +1,6 @@
 import mouseDownHandler from "./dragAndDrop/eventHandlers/mouseDownHandler.mjs";
 import touchHandlers from "./dragAndDrop/eventHandlers/touchHandlers.mjs";
-import { DOMEventElement } from "./dragAndDrop/features/controllEvent.mjs";
+import { DOMEventElement } from "./dragAndDrop/eventHandlers/controllEvent.mjs";
 
 document.addEventListener("DOMContentLoaded", () => {
     DOMEventElement.productGroup.addEventListener("mousedown", mouseDownHandler);

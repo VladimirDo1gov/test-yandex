@@ -1,4 +1,4 @@
-import controllEvent, { DOMEventElement } from "../features/controllEvent.mjs";
+import controllEvent, { DOMEventElement } from "./controllEvent.mjs";
 
 export default function MouseDownHandler(event) {
     controllEvent.isGrabingTarget(event);

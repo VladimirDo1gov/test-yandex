@@ -1,7 +1,7 @@
 // Отвечает за обработку события
 
 import grabedTargetEffects from "../animation/grabedTargetEffects.mjs";
-import controllEvent from "./controllEvent.mjs";
+import controllEvent from "../eventHandlers/controllEvent.mjs";
 
 class ControllMotion {
     shiftX = 0;
