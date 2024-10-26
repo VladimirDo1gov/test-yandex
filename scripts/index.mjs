@@ -1,27 +1,10 @@
 import MouseDownHandler from "./eventHandlers/mouseDownHandler.mjs";
 import TouchHandlers from "./eventHandlers/touchHandlers.mjs";
-
-export const DOMElements = {
-    get productGroup() {
-        return document.querySelector(".product-area-group");
-    },
-    get banner() {
-        return document.querySelector(".banner-section");
-    },
-    get productItems() {
-        return document.querySelectorAll(".product-group-item");
-    },
-    get cart() {
-        return document.querySelector(".cart");
-    },
-    get bannerButton() {
-        return document.querySelector("#banner-button");
-    },
-};
+import { DOMEventElements } from "./controllers/controllerEvent.mjs";
 
 document.addEventListener("DOMContentLoaded", () => {
-    DOMElements.productGroup.addEventListener("mousedown", MouseDownHandler);
-    DOMElements.productGroup.addEventListener("touchstart", TouchHandlers.onTouchStart);
-    DOMElements.productGroup.addEventListener("touchmove", TouchHandlers.onTouchMove);
-    DOMElements.productGroup.addEventListener("touchend", TouchHandlers.onTouchEnd);
+    DOMEventElements.productGroup.addEventListener("mousedown", MouseDownHandler);
+    DOMEventElements.productGroup.addEventListener("touchstart", TouchHandlers.onTouchStart);
+    DOMEventElements.productGroup.addEventListener("touchmove", TouchHandlers.onTouchMove);
+    DOMEventElements.productGroup.addEventListener("touchend", TouchHandlers.onTouchEnd);
 });

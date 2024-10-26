@@ -6,12 +6,12 @@ class TouchHandlers {
     onTouchStart(event) {
         event.preventDefault();
         if (event.target.closest(".product-group-item")) {
-            controllerEvent.isGrabing(event);
+            controllerEvent.isGrabingTarget(event);
         }
     }
     onTouchMove(event) {
-        if (controllerEvent.draggableTarget && controllerEvent.target) {
-            controllerMotion.moveAt(event);
+        if (controllerEvent.draggableTarget) {
+            controllerMotion.moveAt(event, controllerEvent.target);
         }
     }
     onTouchEnd() {

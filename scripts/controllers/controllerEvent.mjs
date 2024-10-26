@@ -1,7 +1,6 @@
-import buttonAnimation from "../animation/buttonAnimation.mjs";
-import cartAnimation from "../animation/cartAnimation.mjs";
+import buttonEffects from "../animation/buttonEffects.mjs";
+import cartEffects from "../animation/cartEffects.mjs";
 import controllerElements from "./controllerElements.mjs";
-import { DOMElements } from "../index.mjs";
 import mouseDownHandler from "../eventHandlers/mouseDownHandler.mjs";
 import touchHandlers from "../eventHandlers/touchHandlers.mjs";
 import controllerMotion from "./controllerMotion.mjs";
@@ -12,42 +11,50 @@ class ControllerEvent {
     target = null;
     dropTarget = null;
 
-    isGrabing(event) {
+    isGrabingTarget(event) {
         this.draggableTarget = true;
         this.target = event.target.closest(".product-group-item");
         controllerElements.addClassSelected(this.target);
-        cartAnimation.targetGrabing();
-        controllerMotion.moveAt(event, this.target); // Без этого предметы смещаются
+        cartEffects.targetGrabing();
+        controllerMotion.moveAt(event, this.target);
         this.target.ondragstart = () => false;
     }
     drop() {
-        if (this.target) {
-            const targetBottom = this.target.getBoundingClientRect().bottom;
-            const x = controllerMotion.shiftX;
-            this.target.hidden = true;
-            this.dropTarget = document.elementFromPoint(x, targetBottom)?.closest(".cart-area");
-            this.target.hidden = false;
-            cartAnimation.targetDrop();
-            if (this.dropTarget) {
-                controllerElements.addProductIntoCart(this.target);
-                storage.addTargetToStore(this.target.id);
-            }
+        const y = this.target.getBoundingClientRect().bottom;
+        const x = controllerMotion.shiftX;
+
+        this.target.hidden = true;
+        this.dropTarget = document.elementFromPoint(x, y)?.closest(".cart-area");
+        this.target.hidden = false;
+        cartEffects.targetDrop();
+
+        if (this.dropTarget) {
+            controllerElements.addProductIntoCart(this.target);
+            storage.addTargetToStore(this.target.id);
         }
+
         this.resetAll();
     }
     resetAll() {
         controllerElements.resetSelectedItem(this.target);
         this.draggableTarget = false;
         this.dropTarget = null;
-        controllerMotion.shiftX = 0;
-        controllerMotion.shiftY = 0;
+        controllerMotion.reset();
     }
+
     finishEvent() {
-        buttonAnimation.butonAnimations();
-        cartAnimation.cartMove();
+        buttonEffects.butonAnimated();
+        cartEffects.cartMove();
         controllerElements.disableItemsNotInCart();
-        DOMElements.productGroup.removeEventListener("mousedown", mouseDownHandler);
-        DOMElements.productGroup.removeEventListener("touchstart", touchHandlers.onTouchStart);
+        DOMEventElements.productGroup.removeEventListener("mousedown", mouseDownHandler);
+        DOMEventElements.productGroup.removeEventListener("touchstart", touchHandlers.onTouchStart);
     }
 }
+
+export const DOMEventElements = {
+    get productGroup() {
+        return document.querySelector(".product-area-group");
+    },
+};
+
 export default new ControllerEvent();

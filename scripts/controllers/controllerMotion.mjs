@@ -1,6 +1,6 @@
 // Отвечает за обработку события
 
-import grabedTargetAnimation from "../animation/grabedTargetAnimation.mjs";
+import grabedTargetEffects from "../animation/grabedTargetEffects.mjs";
 import controllerEvent from "./controllerEvent.mjs";
 
 class ControllerMotion {
@@ -12,21 +12,21 @@ class ControllerMotion {
         const previousX = this.previousX.shift();
         let currentX = event.clientX;
         if (previousX < currentX) {
-            grabedTargetAnimation.rotateTargetToRight(item);
+            grabedTargetEffects.rotateTargetToRight(item);
         }
         if (previousX > currentX) {
-            grabedTargetAnimation.rotateTargetToLeft(item);
+            grabedTargetEffects.rotateTargetToLeft(item);
         }
     }
     getCoordinats(event, item) {
         if (event.clientX) {
-            this.shiftX = event.clientX - item.clientWidth / 2;
-            this.shiftY = event.clientY - item.clientHeight / 2;
+            this.shiftX = event.clientX - item.clientWidth * 0.5;
+            this.shiftY = event.clientY - item.clientHeight * 0.5;
         }
         if (event.touches) {
             const { clientX, clientY } = event.touches[0];
-            this.shiftX = clientX - item.clientWidth / 2;
-            this.shiftY = clientY - item.clientHeight / 2;
+            this.shiftX = clientX - item.clientWidth * 0.5;
+            this.shiftY = clientY - item.clientHeight * 0.5;
         }
     }
     moveAt(event, item) {
@@ -37,18 +37,20 @@ class ControllerMotion {
         item.style.top = this.shiftY + "px";
     }
     setLimitBorder(event, item) {
-        const clientX = event.clientX;
-        const clientY = event.clientY;
         const borderArea = document.documentElement;
-        if (clientX + item.clientWidth > borderArea.clientWidth) {
-            controllerEvent.resetAll(); //right border
-        } else if (clientX - item.clientWidth < borderArea.offsetLeft) {
-            controllerEvent.resetAll(); //left border
-        } else if (clientY - item.clientWidth / 2 < borderArea.offsetTop) {
-            controllerEvent.resetAll(); //up border
-        } else if (clientY + item.clientWidth / 2 > borderArea.clientHeight) {
-            controllerEvent.resetAll(); // down border
+        const leftBorder = event.clientX - item.clientWidth * 0.5 < borderArea.offsetLeft;
+        const rightBorder = event.clientX + item.clientWidth * 0.5 > borderArea.clientWidth;
+        const topBorder = event.clientY - item.clientWidth * 0.5 < borderArea.offsetTop;
+        const bottomBorder = event.clientY + item.clientWidth * 0.5 > borderArea.clientHeight;
+
+        if (leftBorder || rightBorder || topBorder || bottomBorder) {
+            controllerEvent.resetAll();
         }
+    }
+    reset() {
+        this.shiftX = 0;
+        this.shiftY = 0;
+        this.previousX = [];
     }
 }
 
