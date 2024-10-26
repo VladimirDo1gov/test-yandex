@@ -6,15 +6,19 @@ class ButtonEffects {
         addClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.insideBanner);
         banerButtonDOMElement.bannerButton.removeAttribute("aria-hidden");
     }
+    onBlick() {
+        removeClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.notBlick);
+        addClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.blick);
+    }
+    offBlick() {
+        removeClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.blick);
+        addClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.notBlick);
+    }
     buttonIsBlick() {
         const delay = 500;
         let timerId = setInterval(() => {
-            removeClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.notBlick);
-            addClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.blick);
-            setTimeout(() => {
-                removeClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.blick);
-                addClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.notBlick);
-            }, delay);
+            this.onBlick();
+            setTimeout(this.offBlick, delay);
         }, delay * 2);
 
         setTimeout(() => {

@@ -16,7 +16,7 @@ class ControllEvent {
             this.draggableTarget = true;
             this.target = event.target.closest(".product-group-item");
             controlElements.addClassSelected(this.target);
-            cartEffects.targetGrabing();
+            cartEffects.addCartShacking();
             controllMotion.moveAt(event, this.target);
             this.target.ondragstart = () => false;
         }
@@ -24,6 +24,7 @@ class ControllEvent {
     onMove(event) {
         if (this.draggableTarget) {
             controllMotion.mouseMove(event, this.target);
+            controllMotion.setLimitBorder(event, this.target) && this.resetAll();
         }
     }
     drop() {
@@ -33,21 +34,27 @@ class ControllEvent {
         this.target.hidden = true;
         this.dropTarget = document.elementFromPoint(x, y)?.closest(".cart-area");
         this.target.hidden = false;
-        cartEffects.removeAllCartAnimations();
+        cartEffects.removeCartShacking();
 
         if (this.dropTarget) {
             controlElements.addProductIntoCart(this.target);
             storage.addTargetToStore(this.target.id);
-            storage.checkStateCart();
+            this.checkStateCart();
         }
 
         this.resetAll();
     }
     resetAll() {
-        controlElements.resetSelectedItem(this.target);
         this.draggableTarget = false;
         this.dropTarget = null;
-        controllMotion.reset();
+        controlElements.resetSelectedItem(this.target);
+        controllMotion.reset(this.target);
+    }
+
+    checkStateCart() {
+        if (storage.checkStateisFull(2)) {
+            this.finishEvent();
+        }
     }
 
     finishEvent() {

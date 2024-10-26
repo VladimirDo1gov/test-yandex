@@ -1,8 +1,6 @@
-// Отвечает за обработку события
+// Отвечает за движение
 
 import grabedTargetEffects from "../animation/grabedTargetEffects.mjs";
-import controllEvent from "../eventHandlers/controllEvent.mjs";
-
 class ControllMotion {
     shiftX = 0;
     shiftY = 0;
@@ -18,6 +16,7 @@ class ControllMotion {
             grabedTargetEffects.rotateTargetToLeft(item);
         }
     }
+
     getCoordinats(event, item) {
         if (event.clientX) {
             this.shiftX = event.clientX - item.clientWidth * 0.5;
@@ -29,6 +28,7 @@ class ControllMotion {
             this.shiftY = clientY - item.clientHeight * 0.5;
         }
     }
+
     moveAt(event, item) {
         this.getCoordinats(event, item);
         this.previousX.push(event.clientX);
@@ -36,24 +36,23 @@ class ControllMotion {
         item.style.left = this.shiftX + "px";
         item.style.top = this.shiftY + "px";
     }
+
     setLimitBorder(event, item) {
         const borderArea = document.documentElement;
         const leftBorder = event.clientX - item.clientWidth * 0.5 < borderArea.offsetLeft;
         const rightBorder = event.clientX + item.clientWidth * 0.5 > borderArea.clientWidth;
         const topBorder = event.clientY - item.clientWidth * 0.5 < borderArea.offsetTop;
         const bottomBorder = event.clientY + item.clientWidth * 0.5 > borderArea.clientHeight;
-
-        if (leftBorder || rightBorder || topBorder || bottomBorder) {
-            controllEvent.resetAll();
-        }
+        if (leftBorder || rightBorder || topBorder || bottomBorder) return true;
     }
+
     mouseMove(event, item) {
         this.moveAt(event, item);
         this.rotate(event, item);
-        this.setLimitBorder(event, item);
     }
 
-    reset() {
+    reset(item) {
+        grabedTargetEffects.removeRotateTarget(item);
         this.shiftX = 0;
         this.shiftY = 0;
         this.previousX = [];

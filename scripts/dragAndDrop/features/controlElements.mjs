@@ -1,8 +1,6 @@
 // Отвечает за изменение элементов
 
 import { addClass, removeClass } from "../../lib/utils.mjs";
-import grabedTargetEffects from "../animation/grabedTargetEffects.mjs";
-
 class ControlElements {
     addProductIntoCart(item) {
         item.className = grabbedSelectedElementClasses.productIntoCart;
@@ -19,7 +17,6 @@ class ControlElements {
     }
     resetSelectedItem(item) {
         if (item) {
-            grabedTargetEffects.removeRotateTarget(item);
             removeClass(item, grabbedSelectedElementClasses.draggedItem);
             item.style.position = "";
             item = null;

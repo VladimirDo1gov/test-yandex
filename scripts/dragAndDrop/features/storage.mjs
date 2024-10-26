@@ -1,7 +1,4 @@
 /* Следить за количеством предметов в корзине */
-
-import controllEvent from "../eventHandlers/controllEvent.mjs";
-
 class Storage {
     stateCart = [];
 
@@ -9,10 +6,8 @@ class Storage {
         this.stateCart.push(elem);
         console.log(this.stateCart);
     }
-    checkStateCart() {
-        if (this.stateCart.length > 2) {
-            controllEvent.finishEvent();
-        }
+    checkStateisFull(num) {
+        if (this.stateCart.length > num) return true;
     }
 }
 

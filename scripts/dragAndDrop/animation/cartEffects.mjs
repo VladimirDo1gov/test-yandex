@@ -10,15 +10,9 @@ class CartEffects {
     removeCartShacking() {
         removeClass(cartDOMElements.cart, cartClasses.cartShaking);
     }
-    removeAllCartAnimations() {
-        this.removeCartShacking();
-    }
-    targetGrabing() {
-        this.addCartShacking();
-    }
 }
 
-const cartClasses = {
+export const cartClasses = {
     get move() {
         return "cart-move";
     },
