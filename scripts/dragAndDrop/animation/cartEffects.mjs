@@ -10,6 +10,18 @@ class CartEffects {
     removeCartShacking() {
         removeClass(cartDOMElements.cart, cartClasses.cartShaking);
     }
+    addCartScale() {
+        removeClass(cartDOMElements.cartArea, cartClasses.cartNotScale);
+        addClass(cartDOMElements.cartArea, cartClasses.cartScale);
+    }
+    removeCartScale() {
+        removeClass(cartDOMElements.cartArea, cartClasses.cartScale);
+        addClass(cartDOMElements.cartArea, cartClasses.cartNotScale);
+    }
+    removeCartAnimations() {
+        this.removeCartShacking();
+        this.removeCartScale();
+    }
 }
 
 export const cartClasses = {
@@ -19,6 +31,12 @@ export const cartClasses = {
     get cartShaking() {
         return "cart-shaking";
     },
+    get cartScale() {
+        return "cart-scale";
+    },
+    get cartNotScale() {
+        return "cart-not-scale";
+    },
 };
 
 export const cartDOMElements = {
@@ -27,6 +45,9 @@ export const cartDOMElements = {
     },
     get cart() {
         return document.querySelector(".cart");
+    },
+    get cartArea() {
+        return document.querySelector(".cart-area");
     },
 };
 

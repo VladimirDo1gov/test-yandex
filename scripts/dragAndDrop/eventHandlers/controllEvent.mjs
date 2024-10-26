@@ -5,7 +5,6 @@ import mouseDownHandler from "./mouseDownHandler.mjs";
 import touchHandlers from "./touchHandlers.mjs";
 import controllMotion from "../features/controllMotion.mjs";
 import storage from "../features/storage.mjs";
-
 class ControllEvent {
     draggableTarget = false;
     target = null;
@@ -21,32 +20,48 @@ class ControllEvent {
             this.target.ondragstart = () => false;
         }
     }
+
+    targetOverDropEffect() {
+        const dropTarget = controllMotion.getDropTarget(".cart", this.target);
+        if (dropTarget === document.querySelector(".cart")) {
+            cartEffects.addCartScale();
+        }
+        if (dropTarget !== document.querySelector(".cart")) {
+            cartEffects.removeCartScale();
+        }
+    }
     onMove(event) {
         if (this.draggableTarget) {
             controllMotion.mouseMove(event, this.target);
             controllMotion.setLimitBorder(event, this.target) && this.resetAll();
+            this.targetOverDropEffect();
         }
     }
-    drop() {
-        const y = this.target.getBoundingClientRect().bottom;
-        const x = controllMotion.shiftX;
 
-        this.target.hidden = true;
-        this.dropTarget = document.elementFromPoint(x, y)?.closest(".cart-area");
-        this.target.hidden = false;
-        cartEffects.removeCartShacking();
-
+    /**
+     * Если, цель для сброса существует, добавляет в нее сбрасываемый элемент
+     * сохраняет его в store и проверяет store
+     * @param {element} dropTarget
+     */
+    fillDropTarget() {
         if (this.dropTarget) {
             controlElements.addProductIntoCart(this.target);
             storage.addTargetToStore(this.target.id);
             this.checkStateCart();
         }
-
-        this.resetAll();
     }
+    drop() {
+        if (this.target) {
+            this.dropTarget = controllMotion.getDropTarget(".cart-area", this.target);
+            this.fillDropTarget(this.target);
+            this.resetAll();
+        }
+    }
+
     resetAll() {
         this.draggableTarget = false;
         this.dropTarget = null;
+        cartEffects.removeCartAnimations();
         controlElements.resetSelectedItem(this.target);
         controllMotion.reset(this.target);
     }

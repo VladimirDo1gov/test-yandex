@@ -6,6 +6,11 @@ class ControllMotion {
     shiftY = 0;
     previousX = [];
 
+    /**
+     * Вызывает ротацию элемента при движении в соответствующую сторону
+     * @param {MouseEvent} event
+     * @param {DOMElement} item
+     */
     rotate(event, item) {
         const previousX = this.previousX.shift();
         let currentX = event.clientX;
@@ -17,6 +22,11 @@ class ControllMotion {
         }
     }
 
+    /**
+     * Задает координаты смещения для элемента, полученные из координат курсора
+     * @param {MouseEvent} event
+     * @param {DOMElement} item
+     */
     getCoordinats(event, item) {
         if (event.clientX) {
             this.shiftX = event.clientX - item.clientWidth * 0.5;
@@ -29,14 +39,25 @@ class ControllMotion {
         }
     }
 
+    /**
+     * Устанавливает для элемента left и top стили, соответствующие координаты
+     * @param {MouseEvent} event
+     * @param {DOMElement} item
+     */
     moveAt(event, item) {
         this.getCoordinats(event, item);
         this.previousX.push(event.clientX);
-
         item.style.left = this.shiftX + "px";
         item.style.top = this.shiftY + "px";
     }
 
+    /**
+     * Принимает объект события и элемент. Получает координаты курсора и проверяет
+     * не выходит ли элемент за их пределы.
+     * @param {Event} event
+     * @param {element} item
+     * @returns {boolean} Возвращает true, если элемент выходит за границы документа
+     */
     setLimitBorder(event, item) {
         const borderArea = document.documentElement;
         const leftBorder = event.clientX - item.clientWidth * 0.5 < borderArea.offsetLeft;
@@ -44,6 +65,22 @@ class ControllMotion {
         const topBorder = event.clientY - item.clientWidth * 0.5 < borderArea.offsetTop;
         const bottomBorder = event.clientY + item.clientWidth * 0.5 > borderArea.clientHeight;
         if (leftBorder || rightBorder || topBorder || bottomBorder) return true;
+    }
+
+    /**
+     * Возвращает самый глубоко вложенный элемент по заданному классу
+     * для указанного переданного элемента
+     * @param {string} dropTargetClass - Класс элемента, который должен быть целью для сброса. Значение принимает в формате querySelector
+     * @param {element} target - Цель для сброса
+     * @returns {element} dropTarget элемент
+     */
+    getDropTarget(dropTargetClass, target) {
+        const y = target.getBoundingClientRect().bottom;
+        const x = this.shiftX;
+        target.hidden = true;
+        const dropTarget = document.elementFromPoint(x, y)?.closest(dropTargetClass);
+        target.hidden = false;
+        return dropTarget;
     }
 
     mouseMove(event, item) {

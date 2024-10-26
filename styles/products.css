@@ -155,6 +155,28 @@
 .cart-shaking {
     animation: cart-shaking 0.6s forwards ease-in-out;
 }
+.cart-scale {
+    animation: cart-scale 0.5s forwards;
+}
+.cart-not-scale {
+    animation: cart-not-scale 0.5s forwards;
+}
+@keyframes cart-scale {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.1);
+    }
+}
+@keyframes cart-not-scale {
+    0% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
 
 @keyframes cart-shaking {
     0% {
