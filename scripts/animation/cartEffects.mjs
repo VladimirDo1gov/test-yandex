@@ -2,23 +2,23 @@ import { addClass, removeClass } from "../utils/classList.mjs";
 
 class CartEffects {
     showCartTooltip() {
-        addClass(elements.tooltip, classes.showTooltip);
-        elements.tooltip.removeAttribute("aria-hidden");
+        addClass(cartDOMElements.tooltip, cartClasses.showTooltip);
+        cartDOMElements.tooltip.removeAttribute("aria-hidden");
     }
     removeCartTooltip() {
-        removeClass(elements.tooltip, classes.showTooltip);
-        elements.tooltip.setAttribute("aria-hidden", "false");
+        removeClass(cartDOMElements.tooltip, cartClasses.showTooltip);
+        cartDOMElements.tooltip.setAttribute("aria-hidden", "false");
     }
     cartAddScale() {
-        removeClass(elements.cart, classes.notScale);
-        addClass(elements.cart, classes.isScale);
+        removeClass(cartDOMElements.cart, cartClasses.notScale);
+        addClass(cartDOMElements.cart, cartClasses.isScale);
     }
     cartRemoveScale() {
-        removeClass(elements.cart, classes.isScale);
-        addClass(elements.cart, classes.notScale);
+        removeClass(cartDOMElements.cart, cartClasses.isScale);
+        addClass(cartDOMElements.cart, cartClasses.notScale);
     }
     cartMove() {
-        addClass(elements.cartWrapper, classes.move);
+        addClass(cartDOMElements.cartWrapper, cartClasses.move);
     }
     targetDrop() {
         this.cartRemoveScale();
@@ -30,7 +30,7 @@ class CartEffects {
     }
 }
 
-const classes = {
+const cartClasses = {
     get move() {
         return "cart-move";
     },
@@ -45,7 +45,7 @@ const classes = {
     },
 };
 
-const elements = {
+export const cartDOMElements = {
     get tooltip() {
         return document.querySelector(".cart-tooltip");
     },

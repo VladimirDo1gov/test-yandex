@@ -47,6 +47,12 @@ class ControllerMotion {
             controllerEvent.resetAll();
         }
     }
+    mouseMove(event, item) {
+        this.moveAt(event, item);
+        this.rotate(event, item);
+        this.setLimitBorder(event, item);
+    }
+
     reset() {
         this.shiftX = 0;
         this.shiftY = 0;

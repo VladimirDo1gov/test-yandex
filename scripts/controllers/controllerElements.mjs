@@ -5,29 +5,29 @@ import grabedTargetAnimation from "../animation/grabedTargetEffects.mjs";
 
 class ControllerElements {
     addProductIntoCart(item) {
-        item.className = classes.productIntoCart;
-        elements.cartGrid.append(item);
+        item.className = grabbedSelectedElementClasses.productIntoCart;
+        grabbedSelectedDOMElements.cartGrid.append(item);
     }
 
     disableItemsNotInCart() {
-        for (let item of elements.productItems) {
-            addClass(item, classes.opacity);
+        for (let item of grabbedSelectedDOMElements.productItems) {
+            addClass(item, grabbedSelectedElementClasses.opacity);
         }
     }
     addClassSelected(item) {
-        addClass(item, classes.draggedItem);
+        addClass(item, grabbedSelectedElementClasses.draggedItem);
     }
     resetSelectedItem(item) {
         if (item) {
             grabedTargetAnimation.removeRotateTarget(item);
-            removeClass(item, classes.draggedItem);
+            removeClass(item, grabbedSelectedElementClasses.draggedItem);
             item.style.position = "";
             item = null;
         }
     }
 }
 
-const classes = {
+export const grabbedSelectedElementClasses = {
     get draggedItem() {
         return "selected-item";
     },
@@ -39,7 +39,7 @@ const classes = {
     },
 };
 
-const elements = {
+export const grabbedSelectedDOMElements = {
     get cartGrid() {
         return document.querySelector(".cart-grid");
     },

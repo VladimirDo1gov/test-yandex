@@ -2,20 +2,20 @@ import { addClass, removeClass } from "../utils/classList.mjs";
 
 class GrabedTargetEffects {
     rotateTargetToRight(item) {
-        addClass(item, classes.rotateToRight);
-        removeClass(item, classes.rotateToLeft);
+        addClass(item, grabbedRotateElementclasses.rotateToRight);
+        removeClass(item, grabbedRotateElementclasses.rotateToLeft);
     }
     rotateTargetToLeft(item) {
-        addClass(item, classes.rotateToLeft);
-        removeClass(item, classes.rotateToRight);
+        addClass(item, grabbedRotateElementclasses.rotateToLeft);
+        removeClass(item, grabbedRotateElementclasses.rotateToRight);
     }
     removeRotateTarget(item) {
-        removeClass(item, classes.rotateToLeft);
-        removeClass(item, classes.rotateToRight);
+        removeClass(item, grabbedRotateElementclasses.rotateToLeft);
+        removeClass(item, grabbedRotateElementclasses.rotateToRight);
     }
 }
 
-const classes = {
+export const grabbedRotateElementclasses = {
     get rotateToRight() {
         return "rotate-to-right";
     },

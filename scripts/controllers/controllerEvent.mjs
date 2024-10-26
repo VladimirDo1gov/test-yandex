@@ -46,12 +46,12 @@ class ControllerEvent {
         buttonEffects.butonAnimated();
         cartEffects.cartMove();
         controllerElements.disableItemsNotInCart();
-        DOMEventElements.productGroup.removeEventListener("mousedown", mouseDownHandler);
-        DOMEventElements.productGroup.removeEventListener("touchstart", touchHandlers.onTouchStart);
+        DOMEventElement.productGroup.removeEventListener("mousedown", mouseDownHandler);
+        DOMEventElement.productGroup.removeEventListener("touchstart", touchHandlers.onTouchStart);
     }
 }
 
-export const DOMEventElements = {
+export const DOMEventElement = {
     get productGroup() {
         return document.querySelector(".product-area-group");
     },

@@ -2,18 +2,18 @@ import { addClass, removeClass } from "../utils/classList.mjs";
 
 class ButtonEffects {
     showButton() {
-        removeClass(elements.bannerButton, classes.outsideBanner);
-        addClass(elements.bannerButton, classes.insideBanner);
-        elements.bannerButton.removeAttribute("aria-hidden");
+        removeClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.outsideBanner);
+        addClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.insideBanner);
+        banerButtonDOMElement.bannerButton.removeAttribute("aria-hidden");
     }
     buttonIsBlick() {
         const delay = 500;
         let timerId = setInterval(() => {
-            removeClass(elements.bannerButton, classes.notBlick);
-            addClass(elements.bannerButton, classes.blick);
+            removeClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.notBlick);
+            addClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.blick);
             setTimeout(() => {
-                removeClass(elements.bannerButton, classes.blick);
-                addClass(elements.bannerButton, classes.notBlick);
+                removeClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.blick);
+                addClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.notBlick);
             }, delay);
         }, delay * 2);
 
@@ -26,7 +26,7 @@ class ButtonEffects {
         this.buttonIsBlick();
     }
 }
-const classes = {
+export const bannerButtonclasses = {
     get blick() {
         return "btn-blick";
     },
@@ -41,7 +41,7 @@ const classes = {
     },
 };
 
-const elements = {
+export const banerButtonDOMElement = {
     get bannerButton() {
         return document.querySelector("#banner-button");
     },
