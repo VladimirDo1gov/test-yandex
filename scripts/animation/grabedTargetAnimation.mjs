@@ -1,4 +1,4 @@
-import { addClass, removeClass } from "../lib/utils.mjs";
+import { addClass, removeClass } from "../utils/classList.mjs";
 
 class GrabedTargetAnimation {
     classes = {

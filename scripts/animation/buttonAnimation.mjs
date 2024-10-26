@@ -1,5 +1,5 @@
 import { DOMElements } from "../index.mjs";
-import { addClass, removeClass } from "../lib/utils.mjs";
+import { addClass, removeClass } from "../utils/classList.mjs";
 
 class ButtonAnimation {
     classes = {

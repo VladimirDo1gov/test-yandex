@@ -1,88 +1,54 @@
 // Отвечает за обработку события
 
-import cartAnimation from "../animation/cartAnimation.mjs";
 import grabedTargetAnimation from "../animation/grabedTargetAnimation.mjs";
-import controllerElements from "./controllerElements.mjs";
-import controllerStorage from "./controllerStorage.mjs";
+import controllerEvent from "./controllerEvent.mjs";
 
 class ControllerMotion {
-    draggableTarget = false;
-    target = null;
     shiftX = 0;
     shiftY = 0;
-    dropTarget = null;
     previousX = [];
 
-    rotate(event) {
+    rotate(event, item) {
         const previousX = this.previousX.shift();
         let currentX = event.clientX;
         if (previousX < currentX) {
-            grabedTargetAnimation.rotateTargetToRight(this.target);
+            grabedTargetAnimation.rotateTargetToRight(item);
         }
         if (previousX > currentX) {
-            grabedTargetAnimation.rotateTargetToLeft(this.target);
+            grabedTargetAnimation.rotateTargetToLeft(item);
         }
     }
-
-    getCoordinats(clientX, clientY) {
-        this.shiftX = clientX - this.target.clientWidth / 2;
-        this.shiftY = clientY - this.target.clientHeight / 2;
-    }
-    moveAt(event) {
+    getCoordinats(event, item) {
         if (event.clientX) {
-            this.getCoordinats(event.clientX, event.clientY);
-            this.previousX.push(event.clientX);
+            this.shiftX = event.clientX - item.clientWidth / 2;
+            this.shiftY = event.clientY - item.clientHeight / 2;
         }
         if (event.touches) {
             const { clientX, clientY } = event.touches[0];
-            this.getCoordinats(clientX, clientY);
-        }
-        this.target.style.left = this.shiftX + "px";
-        this.target.style.top = this.shiftY + "px";
-    }
-    drop() {
-        if (this.target) {
-            const targetBottom = this.target.getBoundingClientRect().bottom;
-            this.target.hidden = true;
-            this.dropTarget = document
-                .elementFromPoint(this.shiftX, targetBottom)
-                ?.closest(".cart-area");
-            this.target.hidden = false;
-            cartAnimation.targetGrabing();
-            if (this.dropTarget) {
-                controllerElements.addProductIntoCart(this.target);
-                controllerStorage.addTargetToStore(this.target.id);
-            }
+            this.shiftX = clientX - item.clientWidth / 2;
+            this.shiftY = clientY - item.clientHeight / 2;
         }
     }
-    resetAll() {
-        controllerElements.resetSelectedItem(this.target);
-        this.draggableTarget = false;
-        this.dropTarget = null;
-        this.shiftX = 0;
-        this.shiftY = 0;
+    moveAt(event, item) {
+        this.getCoordinats(event, item);
+        this.previousX.push(event.clientX);
+
+        item.style.left = this.shiftX + "px";
+        item.style.top = this.shiftY + "px";
     }
-    setLimitBorder(event) {
+    setLimitBorder(event, item) {
         const clientX = event.clientX;
         const clientY = event.clientY;
         const borderArea = document.documentElement;
-        if (clientX + this.target.clientWidth > borderArea.clientWidth) {
-            this.resetAll(); //right border
-        } else if (clientX - this.target.clientWidth < borderArea.offsetLeft) {
-            this.resetAll(); //left border
-        } else if (clientY - this.target.clientWidth / 2 < borderArea.offsetTop) {
-            this.resetAll(); //up border
-        } else if (clientY + this.target.clientWidth / 2 > borderArea.clientHeight) {
-            this.resetAll(); // down border
+        if (clientX + item.clientWidth > borderArea.clientWidth) {
+            controllerEvent.resetAll(); //right border
+        } else if (clientX - item.clientWidth < borderArea.offsetLeft) {
+            controllerEvent.resetAll(); //left border
+        } else if (clientY - item.clientWidth / 2 < borderArea.offsetTop) {
+            controllerEvent.resetAll(); //up border
+        } else if (clientY + item.clientWidth / 2 > borderArea.clientHeight) {
+            controllerEvent.resetAll(); // down border
         }
-    }
-    isGrabing(event) {
-        this.draggableTarget = true;
-        this.target = event.target.closest(".product-group-item");
-        controllerElements.addClassSelected(this.target);
-        cartAnimation.targetDrop();
-        this.moveAt(event); // Без этого предметы смещаются
-        this.target.ondragstart = () => false;
     }
 }
 

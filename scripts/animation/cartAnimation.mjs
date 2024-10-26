@@ -1,5 +1,5 @@
 import { DOMElements } from "../index.mjs";
-import { addClass, removeClass } from "../lib/utils.mjs";
+import { addClass, removeClass } from "../utils/classList.mjs";
 
 class CartAnimation {
     classes = {
@@ -31,11 +31,11 @@ class CartAnimation {
     cartMove() {
         addClass(this.elements.cartWrapper, this.classes.move);
     }
-    targetGrabing() {
+    targetDrop() {
         this.cartRemoveScale();
         this.removeCartTooltip();
     }
-    targetDrop() {
+    targetGrabing() {
         this.cartAddScale();
         this.showCartTooltip();
     }

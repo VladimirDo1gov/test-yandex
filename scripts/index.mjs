@@ -1,5 +1,5 @@
-import MouseDownHandler from "./dragAndDrop/mouseDownHandler.mjs";
-import TouchHandlers from "./dragAndDrop/touchHandlers.mjs";
+import MouseDownHandler from "./eventHandlers/mouseDownHandler.mjs";
+import TouchHandlers from "./eventHandlers/touchHandlers.mjs";
 
 export const DOMElements = {
     get productGroup() {

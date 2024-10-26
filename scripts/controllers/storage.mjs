@@ -2,7 +2,7 @@
 
 import controllerEvent from "./controllerEvent.mjs";
 
-class ControllerStorage {
+class Storage {
     stateCart = [];
 
     addTargetToStore(elem) {
@@ -16,4 +16,4 @@ class ControllerStorage {
     }
 }
 
-export default new ControllerStorage();
+export default new Storage();
