@@ -1,9 +1,9 @@
 // Отвечает за обработку события
 
 import grabedTargetEffects from "../animation/grabedTargetEffects.mjs";
-import controllerEvent from "./controllerEvent.mjs";
+import controllEvent from "./controllEvent.mjs";
 
-class ControllerMotion {
+class ControllMotion {
     shiftX = 0;
     shiftY = 0;
     previousX = [];
@@ -44,7 +44,7 @@ class ControllerMotion {
         const bottomBorder = event.clientY + item.clientWidth * 0.5 > borderArea.clientHeight;
 
         if (leftBorder || rightBorder || topBorder || bottomBorder) {
-            controllerEvent.resetAll();
+            controllEvent.resetAll();
         }
     }
     mouseMove(event, item) {
@@ -60,4 +60,4 @@ class ControllerMotion {
     }
 }
 
-export default new ControllerMotion();
+export default new ControllMotion();

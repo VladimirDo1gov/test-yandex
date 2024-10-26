@@ -1,4 +1,4 @@
-import { addClass, removeClass } from "../utils/classList.mjs";
+import { addClass, removeClass } from "../../lib/utils.mjs";
 
 class ButtonEffects {
     showButton() {

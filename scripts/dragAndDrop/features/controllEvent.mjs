@@ -1,51 +1,59 @@
 import buttonEffects from "../animation/buttonEffects.mjs";
 import cartEffects from "../animation/cartEffects.mjs";
-import controllerElements from "./controllerElements.mjs";
+import controlElements from "./controlElements.mjs";
 import mouseDownHandler from "../eventHandlers/mouseDownHandler.mjs";
 import touchHandlers from "../eventHandlers/touchHandlers.mjs";
-import controllerMotion from "./controllerMotion.mjs";
+import controllMotion from "./controllMotion.mjs";
 import storage from "./storage.mjs";
 
-class ControllerEvent {
+class ControllEvent {
     draggableTarget = false;
     target = null;
     dropTarget = null;
 
     isGrabingTarget(event) {
-        this.draggableTarget = true;
-        this.target = event.target.closest(".product-group-item");
-        controllerElements.addClassSelected(this.target);
-        cartEffects.targetGrabing();
-        controllerMotion.moveAt(event, this.target);
-        this.target.ondragstart = () => false;
+        if (event.target.closest(".product-group-item")) {
+            this.draggableTarget = true;
+            this.target = event.target.closest(".product-group-item");
+            controlElements.addClassSelected(this.target);
+            cartEffects.targetGrabing();
+            controllMotion.moveAt(event, this.target);
+            this.target.ondragstart = () => false;
+        }
+    }
+    onMove(event) {
+        if (this.draggableTarget) {
+            controllMotion.mouseMove(event, this.target);
+        }
     }
     drop() {
         const y = this.target.getBoundingClientRect().bottom;
-        const x = controllerMotion.shiftX;
+        const x = controllMotion.shiftX;
 
         this.target.hidden = true;
         this.dropTarget = document.elementFromPoint(x, y)?.closest(".cart-area");
         this.target.hidden = false;
-        cartEffects.targetDrop();
+        cartEffects.removeAllCartAnimations();
 
         if (this.dropTarget) {
-            controllerElements.addProductIntoCart(this.target);
+            controlElements.addProductIntoCart(this.target);
             storage.addTargetToStore(this.target.id);
+            storage.checkStateCart();
         }
 
         this.resetAll();
     }
     resetAll() {
-        controllerElements.resetSelectedItem(this.target);
+        controlElements.resetSelectedItem(this.target);
         this.draggableTarget = false;
         this.dropTarget = null;
-        controllerMotion.reset();
+        controllMotion.reset();
     }
 
     finishEvent() {
         buttonEffects.butonAnimated();
         cartEffects.cartMove();
-        controllerElements.disableItemsNotInCart();
+        controlElements.disableItemsNotInCart();
         DOMEventElement.productGroup.removeEventListener("mousedown", mouseDownHandler);
         DOMEventElement.productGroup.removeEventListener("touchstart", touchHandlers.onTouchStart);
     }
@@ -57,4 +65,4 @@ export const DOMEventElement = {
     },
 };
 
-export default new ControllerEvent();
+export default new ControllEvent();

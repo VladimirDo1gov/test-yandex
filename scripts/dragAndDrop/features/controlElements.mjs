@@ -1,9 +1,9 @@
 // Отвечает за изменение элементов
 
-import { addClass, removeClass } from "../utils/classList.mjs";
-import grabedTargetAnimation from "../animation/grabedTargetEffects.mjs";
+import { addClass, removeClass } from "../../lib/utils.mjs";
+import grabedTargetEffects from "../animation/grabedTargetEffects.mjs";
 
-class ControllerElements {
+class ControlElements {
     addProductIntoCart(item) {
         item.className = grabbedSelectedElementClasses.productIntoCart;
         grabbedSelectedDOMElements.cartGrid.append(item);
@@ -19,7 +19,7 @@ class ControllerElements {
     }
     resetSelectedItem(item) {
         if (item) {
-            grabedTargetAnimation.removeRotateTarget(item);
+            grabedTargetEffects.removeRotateTarget(item);
             removeClass(item, grabbedSelectedElementClasses.draggedItem);
             item.style.position = "";
             item = null;
@@ -48,4 +48,4 @@ export const grabbedSelectedDOMElements = {
     },
 };
 
-export default new ControllerElements();
+export default new ControlElements();

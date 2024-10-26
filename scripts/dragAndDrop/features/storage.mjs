@@ -1,6 +1,6 @@
 /* Следить за количеством предметов в корзине */
 
-import controllerEvent from "./controllerEvent.mjs";
+import controllerEvent from "./controllEvent.mjs";
 
 class Storage {
     stateCart = [];
