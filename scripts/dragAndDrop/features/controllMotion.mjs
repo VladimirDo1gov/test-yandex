@@ -54,8 +54,8 @@ class ControllMotion {
     /**
      * Принимает объект события и элемент. Получает координаты курсора и проверяет
      * не выходит ли элемент за их пределы.
-     * @param {Event} event
-     * @param {element} item
+     * @param {MouseEvent} event
+     * @param {DOMElement} item
      * @returns {boolean} Возвращает true, если элемент выходит за границы документа
      */
     setLimitBorder(event, item) {
@@ -71,8 +71,8 @@ class ControllMotion {
      * Возвращает самый глубоко вложенный элемент по заданному классу
      * для указанного переданного элемента
      * @param {string} dropTargetClass - Класс элемента, который должен быть целью для сброса. Значение принимает в формате querySelector
-     * @param {element} target - Цель для сброса
-     * @returns {element} dropTarget элемент
+     * @param {DOMElement} target - Цель для сброса
+     * @returns {DOMelement} dropTarget элемент
      */
     getDropTarget(dropTargetClass, target) {
         const y = target.getBoundingClientRect().bottom;

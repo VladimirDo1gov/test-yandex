@@ -1,5 +1,5 @@
 import buttonEffects from "../animation/buttonEffects.mjs";
-import cartEffects from "../animation/cartEffects.mjs";
+import cartEffects, { cartDOMElements } from "../animation/cartEffects.mjs";
 import controlElements from "../features/controlElements.mjs";
 import mouseDownHandler from "./mouseDownHandler.mjs";
 import touchHandlers from "./touchHandlers.mjs";
@@ -23,10 +23,10 @@ class ControllEvent {
 
     targetOverDropEffect() {
         const dropTarget = controllMotion.getDropTarget(".cart", this.target);
-        if (dropTarget === document.querySelector(".cart")) {
+        if (dropTarget === cartDOMElements.cart) {
             cartEffects.addCartScale();
         }
-        if (dropTarget !== document.querySelector(".cart")) {
+        if (dropTarget !== cartDOMElements.cart) {
             cartEffects.removeCartScale();
         }
     }
