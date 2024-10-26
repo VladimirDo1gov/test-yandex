@@ -11,6 +11,6 @@ function onMouseMove(event) {
 }
 
 function onMouseUp() {
-    document.removeEventListener("mousemove", onMouseMove); // Не удалять
+    document.removeEventListener("mousemove", onMouseMove);
     controllEvent.drop();
 }
