@@ -20,11 +20,19 @@ class CartEffects {
     cartMove() {
         addClass(cartDOMElements.cartWrapper, cartClasses.move);
     }
+    addCartShacking() {
+        addClass(cartDOMElements.cart, "cart-shaking");
+    }
+    removeCartShacking() {
+        removeClass(cartDOMElements.cart, "cart-shaking");
+    }
     targetDrop() {
+        this.removeCartShacking();
         this.cartRemoveScale();
         this.removeCartTooltip();
     }
     targetGrabing() {
+        this.addCartShacking();
         this.cartAddScale();
         this.showCartTooltip();
     }

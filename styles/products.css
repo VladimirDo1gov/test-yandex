@@ -106,17 +106,19 @@
     border: 1px solid black;
     border-radius: 10px;
     background-color: rgba(8, 193, 79, 0.885);
-    width: 100px;
+    width: 200px;
     padding: 10px;
     text-align: center;
     color: aliceblue;
     position: absolute;
     font-size: 18px;
     letter-spacing: 1px;
-    right: -50px;
-    top: -40px;
+    left: 50%;
+
+    transform: translateX(-50%);
     opacity: 0;
     transition: 0.4s;
+    z-index: 2;
 }
 .show-cart-tooltip {
     opacity: 1;
@@ -179,6 +181,35 @@
 .cart-move {
     animation: cart-move 1s 1s forwards ease-in-out;
 }
+.cart-shaking {
+    animation: cart-shaking 0.6s forwards ease-in-out;
+}
+
+@keyframes cart-shaking {
+    0% {
+        transform: rotate(0);
+    }
+    20% {
+        transform: rotate(-10deg);
+    }
+
+    40% {
+        transform: rotate(10deg);
+    }
+
+    60% {
+        transform: rotate(-6deg);
+    }
+
+    80% {
+        transform: rotate(6deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
 @keyframes cart-return-not-scale {
     from {
         transform: scale(1.04);
