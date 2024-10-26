@@ -83,13 +83,21 @@ class ControllMotion {
         return dropTarget;
     }
 
+    /**
+     * Запускает движение элемента и анимацию ротации
+     * @param {MouseEvent} event - объект события
+     * @param {DOMElement} item - схваченный элемент
+     */
     mouseMove(event, item) {
         this.moveAt(event, item);
         this.rotate(event, item);
     }
-
+    /**
+     * Сбрасывает координаты переещаемого элемента и удаляет аниамцию ротации
+     * @param {DOMElement} item - перемещаемый элемент
+     */
     reset(item) {
-        grabedTargetEffects.removeRotateTarget(item);
+        grabedTargetEffects.removeRotateTarget(item); //
         this.shiftX = 0;
         this.shiftY = 0;
         this.previousX = [];

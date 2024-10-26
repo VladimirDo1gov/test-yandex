@@ -2,19 +2,33 @@
 
 import { addClass, removeClass } from "../../lib/utils.mjs";
 class ControlElements {
+    /**
+     * Добавляет продукт в корзину
+     * @param {DOMElement} item
+     */
     addProductIntoCart(item) {
         item.className = grabbedSelectedElementClasses.productIntoCart;
         grabbedSelectedDOMElements.cartGrid.append(item);
     }
-
+    /**
+     * Вешает opacity не продукты, которые не находятся в корзине
+     */
     disableItemsNotInCart() {
         for (let item of grabbedSelectedDOMElements.productItems) {
             addClass(item, grabbedSelectedElementClasses.opacity);
         }
     }
+    /**
+     * Вешает класс захваченного предмета "selected-item" на переданный элемент
+     * @param {DOMElement} item
+     */
     addClassSelected(item) {
         addClass(item, grabbedSelectedElementClasses.draggedItem);
     }
+    /**
+     * Обнуляет захваченный элемент
+     * @param {DOMElement} item
+     */
     resetSelectedItem(item) {
         if (item) {
             removeClass(item, grabbedSelectedElementClasses.draggedItem);

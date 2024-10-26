@@ -1,23 +1,41 @@
 import { addClass, removeClass } from "../../lib/utils.mjs";
 
 class CartEffects {
+    /**
+     * Добавляет анимацию движении корзины вправо
+     */
     cartMove() {
         addClass(cartDOMElements.cartWrapper, cartClasses.move);
     }
+    /**
+     * Добавляет анимацию покачивания корзины
+     */
     addCartShacking() {
         addClass(cartDOMElements.cart, cartClasses.cartShaking);
     }
+    /**
+     * Удаляет анимацию покачивания корзины
+     */
     removeCartShacking() {
         removeClass(cartDOMElements.cart, cartClasses.cartShaking);
     }
+    /**
+     * Добавляет анимацию увеличения масштаба корзины
+     */
     addCartScale() {
         removeClass(cartDOMElements.cartArea, cartClasses.cartNotScale);
         addClass(cartDOMElements.cartArea, cartClasses.cartScale);
     }
+    /**
+     * Удаляет анимацию увеличения масштаба корзины
+     */
     removeCartScale() {
         removeClass(cartDOMElements.cartArea, cartClasses.cartScale);
         addClass(cartDOMElements.cartArea, cartClasses.cartNotScale);
     }
+    /**
+     * Удаляет анимаци покачивания и увеличения масштаба корзины
+     */
     removeCartAnimations() {
         this.removeCartShacking();
         this.removeCartScale();

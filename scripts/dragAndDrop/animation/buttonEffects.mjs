@@ -1,19 +1,31 @@
 import { addClass, removeClass } from "../../lib/utils.mjs";
 
 class ButtonEffects {
+    /**
+     * Анимация появления кнопки
+     */
     showButton() {
         removeClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.outsideBanner);
         addClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.insideBanner);
         banerButtonDOMElement.bannerButton.removeAttribute("aria-hidden");
     }
+    /**
+     * Добавляет блик
+     */
     onBlick() {
         removeClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.notBlick);
         addClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.blick);
     }
+    /**
+     * Удаляет блик
+     */
     offBlick() {
         removeClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.blick);
         addClass(banerButtonDOMElement.bannerButton, bannerButtonclasses.notBlick);
     }
+    /**
+     * Анимация моргания
+     */
     buttonIsBlick() {
         const delay = 500;
         let timerId = setInterval(() => {
@@ -25,6 +37,9 @@ class ButtonEffects {
             clearInterval(timerId);
         }, 10000);
     }
+    /**
+     * Появления кнопки и активирование моргания
+     */
     butonAnimated() {
         this.showButton();
         this.buttonIsBlick();

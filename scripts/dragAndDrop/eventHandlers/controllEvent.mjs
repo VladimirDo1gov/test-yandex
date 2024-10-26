@@ -47,7 +47,7 @@ class ControllEvent {
         if (this.dropTarget) {
             controlElements.addProductIntoCart(this.target);
             storage.addTargetToStore(this.target.id);
-            this.checkStateCart();
+            this.checkStateCart(2);
         }
     }
     drop() {
@@ -66,8 +66,8 @@ class ControllEvent {
         controllMotion.reset(this.target);
     }
 
-    checkStateCart() {
-        if (storage.checkStateisFull(2)) {
+    checkStateCart(num) {
+        if (storage.checkStateisFull(num)) {
             this.finishEvent();
         }
     }
