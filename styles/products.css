@@ -153,49 +153,48 @@
     animation: cart-move 1s 1s forwards ease-in-out;
 }
 .cart-shaking {
-    animation: cart-shaking 0.6s forwards ease-in-out;
+    animation: cart-shaking 0.4s forwards ease-out;
 }
 .cart-scale {
-    animation: cart-scale 0.5s forwards;
+    animation: cart-scale 0.2s forwards ease-in;
 }
 .cart-not-scale {
-    animation: cart-not-scale 0.5s forwards;
+    animation: cart-not-scale 0.2s forwards ease-in;
 }
 @keyframes cart-scale {
     0% {
         transform: scale(1);
     }
     100% {
-        transform: scale(1.1);
+        transform: scale(1.03);
     }
 }
 @keyframes cart-not-scale {
     0% {
-        transform: scale(1.1);
+        transform: scale(1.03);
     }
     100% {
         transform: scale(1);
     }
 }
-
 @keyframes cart-shaking {
     0% {
         transform: rotate(0);
     }
     20% {
-        transform: rotate(-10deg);
+        transform: rotate(-4deg);
     }
 
     40% {
-        transform: rotate(10deg);
+        transform: rotate(4deg);
     }
 
     60% {
-        transform: rotate(-6deg);
+        transform: rotate(-2deg);
     }
 
     80% {
-        transform: rotate(6deg);
+        transform: rotate(2deg);
     }
 
     100% {
