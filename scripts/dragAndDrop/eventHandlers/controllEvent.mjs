@@ -1,5 +1,5 @@
 import buttonEffects from "../animation/buttonEffects.mjs";
-import { getElementPosition } from "../../lib/utils.mjs";
+import { getElementCoordinats } from "../../lib/utils.mjs";
 import cartEffects, { cartDOMElements } from "../animation/cartEffects.mjs";
 import controlElements from "../features/controlElements.mjs";
 import mouseDownHandler from "./mouseDownHandler.mjs";
@@ -27,7 +27,7 @@ class ControllEvent {
      * или удаляет анимацию, если элемент покидает область корзины
      */
     targetOverDropEffect() {
-        const { topBorder, bottomBorder, leftBorder, rightBorder } = getElementPosition(
+        const { topBorder, bottomBorder, leftBorder, rightBorder } = getElementCoordinats(
             cartDOMElements.cartArea
         );
         const x = controllMotion.shiftX + this.target.clientWidth;
@@ -38,6 +38,7 @@ class ControllEvent {
             cartEffects.removeCartScale();
         }
     }
+
     onMove(event) {
         if (this.draggableTarget) {
             controllMotion.mouseMove(event, this.target);

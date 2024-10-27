@@ -21,16 +21,16 @@ export const removeClass = (item, className) => {
 };
 
 /**
- *Возврщает координаты ".cart-area"
+ *Возврщает координаты переданного элемента
  * @param {DOMElement} - элемент, чьи координаты нужно получить
  * @returns {{ topBorder: number, bottomBorder: number, leftBorder: number, rightBorder: number }}
  */
-export const getElementPosition = (item) => {
+export const getElementCoordinats = (item) => {
     const { top, bottom, left, right } = item.getBoundingClientRect();
     const topBorder = Math.trunc(top + window.scrollY);
     const bottomBorder = Math.trunc(bottom + window.scrollY);
-    const leftBorder = Math.trunc(left);
-    const rightBorder = Math.trunc(right);
+    const leftBorder = Math.trunc(left + window.scrollX);
+    const rightBorder = Math.trunc(right + window.scrollX);
     return { topBorder, bottomBorder, leftBorder, rightBorder };
 };
 

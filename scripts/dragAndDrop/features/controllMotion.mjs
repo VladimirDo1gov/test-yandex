@@ -14,7 +14,7 @@ class ControllMotion {
      */
     rotate(event, item) {
         const previousX = this.previousX.shift();
-        const currentX = event.clientX || event.touches[0].clientX;
+        const currentX = getClientCoordinats(event).clientX;
         if (previousX < currentX) {
             grabedTargetEffects.rotateTargetToRight(item);
         }
@@ -44,13 +44,13 @@ class ControllMotion {
      * @returns {boolean} Возвращает true, если элемент выходит за границы документа
      */
     setLimitBorder(event, item) {
-        const { offsetLeft, clientWidth, offsetTop, clientHeight } = document.documentElement;
+        const { offsetLeft, offsetWidth, offsetTop, offsetHeight } = document.documentElement;
         const clientX = getClientCoordinats(event).clientX;
         const clientY = getClientCoordinats(event).clientY;
         const leftBorder = clientX - item.clientWidth * 0.5 < offsetLeft;
-        const rightBorder = clientX + item.clientWidth * 0.5 > clientWidth;
+        const rightBorder = clientX + item.clientWidth * 0.5 > offsetWidth;
         const topBorder = clientY - item.clientHeight * 0.5 < offsetTop;
-        const bottomBorder = clientY + item.clientHeight * 0.5 > clientHeight;
+        const bottomBorder = clientY + item.clientHeight * 0.5 > offsetHeight;
         if (leftBorder || rightBorder || topBorder || bottomBorder) return true;
     }
 
@@ -61,13 +61,13 @@ class ControllMotion {
      * @param {DOMElement} target - Цель для сброса
      * @returns {DOMelement} dropTarget элемент
      */
-    getDropTarget(target) {
-        if (target) {
-            const y = target.getBoundingClientRect().bottom;
+    getDropTarget(item) {
+        if (item) {
+            const y = item.getBoundingClientRect().bottom;
             const x = this.shiftX;
-            target.hidden = true;
+            item.hidden = true;
             const dropTarget = document.elementFromPoint(x, y)?.closest(".cart-area");
-            target.hidden = false;
+            item.hidden = false;
             return dropTarget;
         }
     }
