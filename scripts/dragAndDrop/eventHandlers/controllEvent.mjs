@@ -22,16 +22,17 @@ class ControllEvent {
         }
     }
 
+    /**
+     * Дбавляет анимацию увеличения корзины, если претаскиваемый элемент находится в области ее действия
+     * или удаляет анимацию, если элемент покидает область корзины
+     */
     targetOverDropEffect() {
         const { topBorder, bottomBorder, leftBorder, rightBorder } = getElementPosition(
             cartDOMElements.cartArea
         );
-        if (
-            topBorder < controllMotion.shiftY &&
-            bottomBorder > controllMotion.shiftY &&
-            leftBorder < controllMotion.shiftX &&
-            rightBorder > controllMotion.shiftX
-        ) {
+        const x = controllMotion.shiftX + this.target.clientWidth;
+        const y = controllMotion.shiftY + this.target.clientHeight;
+        if (topBorder < y && bottomBorder > y && leftBorder < x && rightBorder > x) {
             cartEffects.addCartScale();
         } else {
             cartEffects.removeCartScale();

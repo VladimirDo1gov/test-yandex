@@ -59,8 +59,8 @@ class ControllMotion {
         const borderArea = document.documentElement;
         const leftBorder = event.clientX - item.clientWidth * 0.5 < borderArea.offsetLeft;
         const rightBorder = event.clientX + item.clientWidth * 0.5 > borderArea.clientWidth;
-        const topBorder = event.clientY - item.clientWidth * 0.5 < borderArea.offsetTop;
-        const bottomBorder = event.clientY + item.clientWidth * 0.5 > borderArea.clientHeight;
+        const topBorder = event.clientY - item.clientHeight * 0.5 < borderArea.offsetTop;
+        const bottomBorder = event.clientY + item.clientHeight * 0.5 > borderArea.clientHeight;
         if (leftBorder || rightBorder || topBorder || bottomBorder) return true;
     }
 
