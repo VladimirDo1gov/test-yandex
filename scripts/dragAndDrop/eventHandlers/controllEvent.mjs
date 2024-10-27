@@ -22,27 +22,34 @@ class ControllEvent {
     }
 
     targetOverDropEffect(event) {
-        if (this.dropTarget === cartDOMElements.cartArea) {
+        const { top, bottom, left, right } = cartDOMElements.cartArea.getBoundingClientRect();
+        const topBorder = Math.trunc(top + window.scrollY);
+        const bottomBorder = Math.trunc(bottom + window.scrollY);
+        const leftBorder = Math.trunc(left);
+        const rightBorder = Math.trunc(right);
+        if (
+            topBorder < event.clientY &&
+            bottomBorder > event.clientY &&
+            leftBorder < event.clientX &&
+            rightBorder > event.clientX
+        ) {
             cartEffects.addCartScale();
+        } else {
+            cartEffects.removeCartScale();
         }
-        // if (this.dropTarget !== cartDOMElements.cartArea) {
-        //     cartEffects.removeCartScale();
-        // }
     }
     onMove(event) {
         if (this.draggableTarget) {
             controllMotion.mouseMove(event, this.target);
-            controllMotion.rotate(event, this.target);
-            controllMotion.setLimitBorder(event, this.target) && this.resetAll(); // возвращает если за границей
-            this.dropTarget = controllMotion.getDropTarget(".cart-area", event.target);
-
-            this.targetOverDropEffect(event); // ошибка в ней
+            this.targetOverDropEffect(event);
+            controllMotion.setLimitBorder(event, this.target) && this.resetAll();
+            controllMotion.rotate(event, this.target); // или в ней
         }
     }
 
     drop() {
         if (this.target) {
-            this.dropTarget = controllMotion.getDropTarget(".cart-area", this.target);
+            this.dropTarget = controllMotion.getDropTarget(this.target);
             this.fillDropTarget(this.target);
             this.resetAll();
         }

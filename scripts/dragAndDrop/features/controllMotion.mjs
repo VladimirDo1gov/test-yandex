@@ -74,12 +74,12 @@ class ControllMotion {
      * @param {DOMElement} target - Цель для сброса
      * @returns {DOMelement} dropTarget элемент
      */
-    getDropTarget(dropTargetClass, target) {
+    getDropTarget(target) {
         if (target) {
             const y = target.getBoundingClientRect().bottom;
             const x = this.shiftX;
             target.hidden = true;
-            const dropTarget = document.elementFromPoint(x, y)?.closest(dropTargetClass);
+            const dropTarget = document.elementFromPoint(x, y)?.closest(".cart-area");
             target.hidden = false;
             return dropTarget;
         }
