@@ -13,7 +13,12 @@ class ControllMotion {
      */
     rotate(event, item) {
         const previousX = this.previousX.shift();
-        let currentX = event.clientX;
+        let currentX;
+        if (event.clientX) {
+            currentX = event.clientX;
+        } else {
+            currentX = event.touches[0].clientX;
+        }
         if (previousX < currentX) {
             grabedTargetEffects.rotateTargetToRight(item);
         }
@@ -46,7 +51,7 @@ class ControllMotion {
      */
     moveAt(event, item) {
         this.getCoordinats(event, item);
-        this.previousX.push(event.clientX);
+        this.previousX.push(event.clientX || event.touches[0].clientX);
         item.style.left = this.shiftX + "px";
         item.style.top = this.shiftY + "px";
     }

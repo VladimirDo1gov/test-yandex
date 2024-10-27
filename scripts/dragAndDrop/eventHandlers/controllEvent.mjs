@@ -28,10 +28,10 @@ class ControllEvent {
         const leftBorder = Math.trunc(left);
         const rightBorder = Math.trunc(right);
         if (
-            topBorder < event.clientY &&
-            bottomBorder > event.clientY &&
-            leftBorder < event.clientX &&
-            rightBorder > event.clientX
+            topBorder < controllMotion.shiftY &&
+            bottomBorder > controllMotion.shiftY &&
+            leftBorder < controllMotion.shiftX &&
+            rightBorder > controllMotion.shiftX
         ) {
             cartEffects.addCartScale();
         } else {
