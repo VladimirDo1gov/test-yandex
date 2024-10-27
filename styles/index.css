@@ -33,10 +33,6 @@ a {
     opacity: var(--opacity-sm);
 }
 
-.product-group-item-wrapper {
-    border: 1px solid black;
-}
-
 /*#region button */
 .btn-default {
     background-color: var(--btn-color-default);

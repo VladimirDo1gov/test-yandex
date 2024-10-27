@@ -13,12 +13,7 @@ class ControllMotion {
      */
     rotate(event, item) {
         const previousX = this.previousX.shift();
-        let currentX;
-        if (event.clientX) {
-            currentX = event.clientX;
-        } else {
-            currentX = event.touches[0].clientX;
-        }
+        const currentX = event.clientX || event.touches[0].clientX;
         if (previousX < currentX) {
             grabedTargetEffects.rotateTargetToRight(item);
         }
@@ -33,15 +28,12 @@ class ControllMotion {
      * @param {DOMElement} item
      */
     getCoordinats(event, item) {
-        if (event.clientX) {
-            this.shiftX = event.clientX - item.clientWidth * 0.5;
-            this.shiftY = event.clientY - item.clientHeight * 0.5;
-        }
-        if (event.touches) {
-            const { clientX, clientY } = event.touches[0];
-            this.shiftX = clientX - item.clientWidth * 0.5;
-            this.shiftY = clientY - item.clientHeight * 0.5;
-        }
+        this.shiftX =
+            event.clientX - item.clientWidth * 0.5 ||
+            event.touches[0].clientX - item.clientWidth * 0.5;
+        this.shiftY =
+            event.clientY - item.clientHeight * 0.5 ||
+            event.touches[0].clientY - item.clientHeight * 0.5;
     }
 
     /**
@@ -97,8 +89,9 @@ class ControllMotion {
      */
     mouseMove(event, item) {
         this.moveAt(event, item);
-        // this.rotate(event, item);
+        this.rotate(event, item);
     }
+
     /**
      * Сбрасывает координаты переещаемого элемента и удаляет аниамцию ротации
      * @param {DOMElement} item - перемещаемый элемент

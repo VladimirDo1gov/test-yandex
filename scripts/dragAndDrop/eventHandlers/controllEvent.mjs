@@ -1,4 +1,5 @@
 import buttonEffects from "../animation/buttonEffects.mjs";
+import { getElementPosition } from "../../lib/utils.mjs";
 import cartEffects, { cartDOMElements } from "../animation/cartEffects.mjs";
 import controlElements from "../features/controlElements.mjs";
 import mouseDownHandler from "./mouseDownHandler.mjs";
@@ -21,12 +22,10 @@ class ControllEvent {
         }
     }
 
-    targetOverDropEffect(event) {
-        const { top, bottom, left, right } = cartDOMElements.cartArea.getBoundingClientRect();
-        const topBorder = Math.trunc(top + window.scrollY);
-        const bottomBorder = Math.trunc(bottom + window.scrollY);
-        const leftBorder = Math.trunc(left);
-        const rightBorder = Math.trunc(right);
+    targetOverDropEffect() {
+        const { topBorder, bottomBorder, leftBorder, rightBorder } = getElementPosition(
+            cartDOMElements.cartArea
+        );
         if (
             topBorder < controllMotion.shiftY &&
             bottomBorder > controllMotion.shiftY &&
@@ -41,9 +40,8 @@ class ControllEvent {
     onMove(event) {
         if (this.draggableTarget) {
             controllMotion.mouseMove(event, this.target);
-            this.targetOverDropEffect(event);
             controllMotion.setLimitBorder(event, this.target) && this.resetAll();
-            controllMotion.rotate(event, this.target); // или в ней
+            this.targetOverDropEffect();
         }
     }
 
