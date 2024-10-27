@@ -72,7 +72,7 @@ class ControllEvent {
         this.draggableTarget = false;
         this.dropTarget = null;
         cartEffects.removeCartAnimations();
-        controlElements.resetSelectedItem();
+        controlElements.resetSelectedItem(this.target);
         controllMotion.reset(this.target);
     }
 
