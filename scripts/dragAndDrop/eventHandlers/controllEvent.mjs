@@ -21,20 +21,30 @@ class ControllEvent {
         }
     }
 
-    targetOverDropEffect() {
-        const dropTarget = controllMotion.getDropTarget(".cart", this.target);
-        if (dropTarget === cartDOMElements.cart) {
+    targetOverDropEffect(event) {
+        if (this.dropTarget === cartDOMElements.cartArea) {
             cartEffects.addCartScale();
         }
-        if (dropTarget !== cartDOMElements.cart) {
-            cartEffects.removeCartScale();
-        }
+        // if (this.dropTarget !== cartDOMElements.cartArea) {
+        //     cartEffects.removeCartScale();
+        // }
     }
     onMove(event) {
         if (this.draggableTarget) {
             controllMotion.mouseMove(event, this.target);
-            controllMotion.setLimitBorder(event, this.target) && this.resetAll();
-            this.targetOverDropEffect();
+            controllMotion.rotate(event, this.target);
+            controllMotion.setLimitBorder(event, this.target) && this.resetAll(); // возвращает если за границей
+            this.dropTarget = controllMotion.getDropTarget(".cart-area", event.target);
+
+            this.targetOverDropEffect(event); // ошибка в ней
+        }
+    }
+
+    drop() {
+        if (this.target) {
+            this.dropTarget = controllMotion.getDropTarget(".cart-area", this.target);
+            this.fillDropTarget(this.target);
+            this.resetAll();
         }
     }
 
@@ -48,13 +58,6 @@ class ControllEvent {
             controlElements.addProductIntoCart(this.target);
             storage.addTargetToStore(this.target.id);
             this.checkStateCart(2);
-        }
-    }
-    drop() {
-        if (this.target) {
-            this.dropTarget = controllMotion.getDropTarget(".cart-area", this.target);
-            this.fillDropTarget(this.target);
-            this.resetAll();
         }
     }
 

@@ -75,12 +75,14 @@ class ControllMotion {
      * @returns {DOMelement} dropTarget элемент
      */
     getDropTarget(dropTargetClass, target) {
-        const y = target.getBoundingClientRect().bottom;
-        const x = this.shiftX;
-        target.hidden = true;
-        const dropTarget = document.elementFromPoint(x, y)?.closest(dropTargetClass);
-        target.hidden = false;
-        return dropTarget;
+        if (target) {
+            const y = target.getBoundingClientRect().bottom;
+            const x = this.shiftX;
+            target.hidden = true;
+            const dropTarget = document.elementFromPoint(x, y)?.closest(dropTargetClass);
+            target.hidden = false;
+            return dropTarget;
+        }
     }
 
     /**
@@ -90,7 +92,7 @@ class ControllMotion {
      */
     mouseMove(event, item) {
         this.moveAt(event, item);
-        this.rotate(event, item);
+        // this.rotate(event, item);
     }
     /**
      * Сбрасывает координаты переещаемого элемента и удаляет аниамцию ротации
