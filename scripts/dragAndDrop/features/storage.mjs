@@ -1,13 +1,14 @@
 /* Следить за количеством предметов в корзине */
+
 class Storage {
     stateCart = [];
 
     /**
-     * Сохраняет элемент во внутренним массиве
+     * Сохраняет id элемента во внутреннем массиве
      * @param {string} elem
      */
     addTargetToStore(elem) {
-        this.stateCart.push(elem);
+        this.stateCart.push(elem.id);
         console.log(this.stateCart);
     }
     /**

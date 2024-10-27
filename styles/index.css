@@ -15,7 +15,6 @@ a {
     margin: 0 auto;
     max-width: 900;
     display: flex;
-    align-items: center;
     justify-content: center;
     height: 100vh;
 }
@@ -28,6 +27,9 @@ a {
 }
 .grab {
     cursor: grab;
+}
+.no-drop {
+    cursor: no-drop !important;
 }
 .opacity {
     opacity: var(--opacity-sm);

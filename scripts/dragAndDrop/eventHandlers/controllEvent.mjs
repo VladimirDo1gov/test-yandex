@@ -63,7 +63,7 @@ class ControllEvent {
     fillDropTarget() {
         if (this.dropTarget) {
             controlElements.addProductIntoCart(this.target);
-            storage.addTargetToStore(this.target.id);
+            storage.addTargetToStore(this.target);
             this.checkStateCart(2);
         }
     }
@@ -72,7 +72,7 @@ class ControllEvent {
         this.draggableTarget = false;
         this.dropTarget = null;
         cartEffects.removeCartAnimations();
-        controlElements.resetSelectedItem(this.target);
+        controlElements.resetSelectedItem();
         controllMotion.reset(this.target);
     }
 

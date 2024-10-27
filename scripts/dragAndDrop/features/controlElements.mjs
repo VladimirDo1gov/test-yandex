@@ -7,15 +7,16 @@ class ControlElements {
      * @param {DOMElement} item
      */
     addProductIntoCart(item) {
-        item.className = grabbedSelectedElementClasses.productIntoCart;
-        grabbedSelectedDOMElements.cartGrid.append(item);
+        item.className = selectedElementClasses.productIntoCart;
+        selectedDOMElements.cartGrid.append(item);
     }
     /**
      * Вешает opacity не продукты, которые не находятся в корзине
      */
     disableItemsNotInCart() {
-        for (let item of grabbedSelectedDOMElements.productItems) {
-            addClass(item, grabbedSelectedElementClasses.opacity);
+        for (let item of selectedDOMElements.productItems) {
+            addClass(item, selectedElementClasses.opacity);
+            addClass(item, selectedElementClasses.noDrop);
         }
     }
     /**
@@ -23,7 +24,7 @@ class ControlElements {
      * @param {DOMElement} item
      */
     addClassSelected(item) {
-        addClass(item, grabbedSelectedElementClasses.draggedItem);
+        addClass(item, selectedElementClasses.draggedItem);
     }
     /**
      * Обнуляет захваченный элемент
@@ -31,14 +32,14 @@ class ControlElements {
      */
     resetSelectedItem(item) {
         if (item) {
-            removeClass(item, grabbedSelectedElementClasses.draggedItem);
+            removeClass(item, selectedElementClasses.draggedItem);
             item.style.position = "";
             item = null;
         }
     }
 }
 
-export const grabbedSelectedElementClasses = {
+export const selectedElementClasses = {
     get draggedItem() {
         return "selected-item";
     },
@@ -48,9 +49,12 @@ export const grabbedSelectedElementClasses = {
     get opacity() {
         return "opacity";
     },
+    get noDrop() {
+        return "no-drop";
+    },
 };
 
-export const grabbedSelectedDOMElements = {
+export const selectedDOMElements = {
     get cartGrid() {
         return document.querySelector(".cart-grid");
     },
