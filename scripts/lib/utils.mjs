@@ -33,3 +33,14 @@ export const getElementPosition = (item) => {
     const rightBorder = Math.trunc(right);
     return { topBorder, bottomBorder, leftBorder, rightBorder };
 };
+
+/**
+ * Возвращает координаты, как для событий мыши, так и для события тача
+ * @param {MouseEvent} event
+ * @returns {{clientX: number, clientY: number}}
+ */
+export const getClientCoordinats = (event) => {
+    const clientX = event.clientX || event.touches[0].clientX;
+    const clientY = event.clientY || event.touches[0].clientY;
+    return { clientX, clientY };
+};

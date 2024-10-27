@@ -1,5 +1,6 @@
 // Отвечает за движение
 
+import { getClientCoordinats } from "../../lib/utils.mjs";
 import grabedTargetEffects from "../animation/grabedTargetEffects.mjs";
 class ControllMotion {
     shiftX = 0;
@@ -23,26 +24,13 @@ class ControllMotion {
     }
 
     /**
-     * Задает координаты смещения для элемента, полученные из координат курсора
-     * @param {MouseEvent} event
-     * @param {DOMElement} item
-     */
-    getCoordinats(event, item) {
-        this.shiftX =
-            event.clientX - item.clientWidth * 0.5 ||
-            event.touches[0].clientX - item.clientWidth * 0.5;
-        this.shiftY =
-            event.clientY - item.clientHeight * 0.5 ||
-            event.touches[0].clientY - item.clientHeight * 0.5;
-    }
-
-    /**
      * Устанавливает для элемента left и top стили, соответствующие координаты
      * @param {MouseEvent} event
      * @param {DOMElement} item
      */
     moveAt(event, item) {
-        this.getCoordinats(event, item);
+        this.shiftX = getClientCoordinats(event).clientX - item.clientWidth * 0.5;
+        this.shiftY = getClientCoordinats(event).clientY - item.clientHeight * 0.5;
         this.previousX.push(event.clientX || event.touches[0].clientX);
         item.style.left = this.shiftX + "px";
         item.style.top = this.shiftY + "px";
@@ -56,11 +44,13 @@ class ControllMotion {
      * @returns {boolean} Возвращает true, если элемент выходит за границы документа
      */
     setLimitBorder(event, item) {
-        const borderArea = document.documentElement;
-        const leftBorder = event.clientX - item.clientWidth * 0.5 < borderArea.offsetLeft;
-        const rightBorder = event.clientX + item.clientWidth * 0.5 > borderArea.clientWidth;
-        const topBorder = event.clientY - item.clientHeight * 0.5 < borderArea.offsetTop;
-        const bottomBorder = event.clientY + item.clientHeight * 0.5 > borderArea.clientHeight;
+        const { offsetLeft, clientWidth, offsetTop, clientHeight } = document.documentElement;
+        const clientX = getClientCoordinats(event).clientX;
+        const clientY = getClientCoordinats(event).clientY;
+        const leftBorder = clientX - item.clientWidth * 0.5 < offsetLeft;
+        const rightBorder = clientX + item.clientWidth * 0.5 > clientWidth;
+        const topBorder = clientY - item.clientHeight * 0.5 < offsetTop;
+        const bottomBorder = clientY + item.clientHeight * 0.5 > clientHeight;
         if (leftBorder || rightBorder || topBorder || bottomBorder) return true;
     }
 
